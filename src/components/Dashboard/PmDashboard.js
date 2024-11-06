@@ -26,6 +26,8 @@ const drawerWidth = 240;
 const PmDashboard = () => {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const navigate = useNavigate();
+  
+  const userEmail = localStorage.getItem("userEmail");
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -33,6 +35,8 @@ const PmDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("applicationSubmitted");
+    localStorage.removeItem("userEmail"); 
+    localStorage.removeItem('user');
     navigate("/");
   };
 
@@ -46,7 +50,7 @@ const PmDashboard = () => {
     { text: "Services", icon: <MessageIcon style={{ color: "#FFFFFF" }} /> },
     {
       text: "Marketing",
-      icon: <QueueMusicRounded style={{ color: "#FFFFFF" }} />,
+      icon: <QueueMusicRounded style={{ color: "#FFFFFF" }} /> ,
     },
     { text: "Tenants & Leases", icon: <Group style={{ color: "#FFFFFF" }} /> },
     { text: "Financials", icon: <Propane style={{ color: "#FFFFFF" }} /> },
@@ -58,7 +62,7 @@ const PmDashboard = () => {
     {
       text: "Logout",
       icon: <Logout style={{ color: "#FFFFFF" }} />,
-      onClick: handleLogout, 
+      onClick: handleLogout,
     },
   ];
 
@@ -66,10 +70,8 @@ const PmDashboard = () => {
     switch (activeTab) {
       case "Dashboard":
         return <Dashboard />;
-
       case "Properties":
         return <PropertyOnboarding />;
-
       default:
         return (
           <Typography variant="h6">Select a tab to view content</Typography>
@@ -112,17 +114,18 @@ const PmDashboard = () => {
           }}
         >
           <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
+            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
               {`${activeTab}`}
             </Typography>
+            {/* Display the email address of the logged-in user */}
+            {userEmail && (
+              <Typography variant="body1" sx={{ color: "#fff", marginRight: 2 }}>
+                {userEmail}
+              </Typography>
+            )}
           </Toolbar>
         </AppBar>
 

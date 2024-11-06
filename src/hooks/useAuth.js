@@ -20,6 +20,7 @@ const useAuth = () => {
 
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData)); 
+      localStorage.setItem("userEmail", JSON.stringify(userData.email)); 
 
       if (userData.role === 'ADMIN') {
         navigate('/backoffice-dashboard');
@@ -36,7 +37,7 @@ const useAuth = () => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user'); // Clear user data from local storage
+    localStorage.removeItem('user');
     navigate('/');
   };
 
