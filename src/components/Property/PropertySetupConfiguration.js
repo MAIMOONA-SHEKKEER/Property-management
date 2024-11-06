@@ -18,7 +18,6 @@ const PropertySetupConfiguration = ({
 }) => {
   return (
     <>
-      {" "}
       <Card
         variant="outlined"
         sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
@@ -96,7 +95,7 @@ const PropertySetupConfiguration = ({
           <Button
             fullWidth
             onClick={handleSubmitAdditionalDetails}
-            sx={{ mt: 3 }}
+            sx={{ mt: 3,backgroundColor:"#3f51b5",color:"white" }}
           >
             Submit Additional Details
           </Button>

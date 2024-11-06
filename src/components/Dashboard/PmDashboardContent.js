@@ -1,9 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, CardContent, Card, Grid } from '@mui/material';
-import useAuth from '../../hooks/useAuth';
 
-function Dashboard() {
-    const { user } = useAuth();
+function PmDashboardContent() {
 
   return (
     <Box sx={{ p: 3 }}>
@@ -63,4 +61,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default PmDashboardContent;

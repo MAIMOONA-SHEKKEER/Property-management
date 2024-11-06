@@ -19,8 +19,8 @@ import MessageIcon from "@mui/icons-material/Message";
 import MenuIcon from "@mui/icons-material/Menu";
 import { QueueMusicRounded, Propane, Group, Logout } from "@mui/icons-material";
 import PropertyOnboarding from "../Property/PropertyOnboarding";
-import Dashboard from "./Dashboard";
 import { useNavigate } from "react-router-dom";
+import PmDashboardContent from "./PmDashboardContent";
 const drawerWidth = 240;
 
 const PmDashboard = () => {
@@ -28,15 +28,14 @@ const PmDashboard = () => {
   const navigate = useNavigate();
   
   const userEmail = localStorage.getItem("userEmail");
+  const userName = localStorage.getItem("userName");
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("applicationSubmitted");
-    localStorage.removeItem("userEmail"); 
-    localStorage.removeItem('user');
+    localStorage.clear();
     navigate("/");
   };
 
@@ -69,7 +68,7 @@ const PmDashboard = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "Dashboard":
-        return <Dashboard />;
+        return <PmDashboardContent />;
       case "Properties":
         return <PropertyOnboarding />;
       default:
@@ -120,12 +119,18 @@ const PmDashboard = () => {
             <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
               {`${activeTab}`}
             </Typography>
-            {/* Display the email address of the logged-in user */}
-            {userEmail && (
-              <Typography variant="body1" sx={{ color: "#fff", marginRight: 2 }}>
-                {userEmail}
-              </Typography>
-            )}
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              {userName && (
+                <Typography variant="body1" sx={{ color: "#fff", marginRight: 2 }}>
+                  {userName}
+                </Typography>
+              )}
+              {userEmail && (
+                <Typography variant="body1" sx={{ color: "#fff" }}>
+                  {userEmail}
+                </Typography>
+              )}
+            </Box>
           </Toolbar>
         </AppBar>
 

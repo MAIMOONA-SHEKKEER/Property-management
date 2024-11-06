@@ -20,7 +20,8 @@ const useAuth = () => {
 
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData)); 
-      localStorage.setItem("userEmail", JSON.stringify(userData.email)); 
+      localStorage.setItem("userEmail", userData.email); 
+      localStorage.setItem("userName", userData.full_name); 
 
       if (userData.role === 'ADMIN') {
         navigate('/backoffice-dashboard');
@@ -35,13 +36,7 @@ const useAuth = () => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-
-  return { user, login, logout, error };
+  return { user, login, error };
 };
 
 export default useAuth;

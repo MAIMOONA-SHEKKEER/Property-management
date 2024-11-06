@@ -21,7 +21,6 @@ export const PmInvitation = ({handleNextStep,handlePreviousStep}) => {
         the property and tenants on your behalf. This step is optional.
       </Typography>
 
-      {/* Invitation Options */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12}>
           <Button
@@ -74,7 +73,7 @@ export const PmInvitation = ({handleNextStep,handlePreviousStep}) => {
       <Button
         variant="outlined"
         fullWidth
-        sx={{ mt: 2 }}
+        sx={{ mt: 2 ,color:'#3f51b5'}}
         onClick={handlePreviousStep}
       >
         Back to Legal Terms

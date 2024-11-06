@@ -1,0 +1,21 @@
+export const applications = [
+    { id: "A001", property_id: "P001", status: "Pending", locked: false },
+    { id: "A002", property_id: "P002", status: "Conditionally Approved", locked: false },
+    { id: "A003", property_id: "P003", status: "Approved", locked: true },
+    { id: "A004", property_id: "P004", status: "Declined", locked: false },
+    { id: "A005", property_id: "P005", status: "Pending", locked: true },
+    { id: "A006", property_id: "P006", status: "Conditionally Approved", locked: true },
+    { id: "A007", property_id: "P007", status: "Approved", locked: false },
+    { id: "A008", property_id: "P008", status: "Declined", locked: false },
+    { id: "A009", property_id: "P009", status: "Pending", locked: false },
+    { id: "A010", property_id: "P010", status: "Approved", locked: true },
+    { id: "A011", property_id: "P011", status: "Conditionally Approved", locked: false },
+    { id: "A012", property_id: "P012", status: "Declined", locked: true },
+    { id: "A013", property_id: "P013", status: "Pending", locked: true },
+    { id: "A014", property_id: "P014", status: "Approved", locked: false },
+    { id: "A015", property_id: "P015", status: "Conditionally Approved", locked: true },
+    { id: "A016", property_id: "P016", status: "Declined", locked: false },
+    { id: "A017", property_id: "P017", status: "Pending", locked: false },
+    { id: "A018", property_id: "P018", status: "Approved", locked: true },
+  ];
+  

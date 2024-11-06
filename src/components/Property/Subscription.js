@@ -29,7 +29,7 @@ export const Subscription = ({handleNextStep,handlePreviousStep}) => {
               </Button>
             </Grid>
             <Grid item xs={12}>
-              <Button variant="contained" fullWidth>
+              <Button variant="contained" sx={{backgroundColor:"#3f51b5",color:'white'}} fullWidth>
                 Activate Subscription
               </Button>
             </Grid>
@@ -57,7 +57,7 @@ export const Subscription = ({handleNextStep,handlePreviousStep}) => {
           <Button
             variant="outlined"
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{ mt: 2,color:'#3f51b5' }}
             onClick={handlePreviousStep}
           >
             Back to PM Invitation
