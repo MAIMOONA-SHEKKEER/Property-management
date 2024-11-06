@@ -4,12 +4,10 @@ import {
   Button,
   Typography,
   CircularProgress,
-  Box,
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import StyledWrapper from "../styled/StyledWrapper";
 import FormContainer from "../styled/FormContainer";
-import { useNavigate } from "react-router-dom";
 import AuthRedirect from "../styled/AuthRedirect";
 
 const Login = () => {
@@ -17,7 +15,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
