@@ -1,38 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-} from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import TaskIcon from "@mui/icons-material/Task";
-import ApartmentIcon from "@mui/icons-material/Apartment";
+  Home as HomeIcon,
+  Task as TaskIcon,
+  Group,
+  Logout,
+} from "@mui/icons-material";
+import DashboardLayout from "./DashboardLayout";
+import PmDashboardContent from "../Property/PmDashboardContent";
+import PropertyOnboarding from "../Property/PropertyOnboarding";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
-import MenuIcon from "@mui/icons-material/Menu";
-import { QueueMusicRounded, Propane, Group, Logout } from "@mui/icons-material";
-import PropertyOnboarding from "../Property/PropertyOnboarding";
+import { QueueMusicRounded, Propane } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import PmDashboardContent from "./PmDashboardContent";
-const drawerWidth = 240;
 
 const PmDashboard = () => {
-  const [activeTab, setActiveTab] = useState("Dashboard");
   const navigate = useNavigate();
-  
-  const userEmail = localStorage.getItem("userEmail");
   const userName = localStorage.getItem("userName");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const userEmail = localStorage.getItem("userEmail");
 
   const handleLogout = () => {
     localStorage.clear();
@@ -40,104 +24,38 @@ const PmDashboard = () => {
   };
 
   const tabs = [
-    { text: "Dashboard", icon: <HomeIcon style={{ color: "#FFFFFF" }} /> },
-    { text: "Tasks", icon: <TaskIcon style={{ color: "#FFFFFF" }} /> },
+    { text: "Dashboard", icon: <HomeIcon />, content: <PmDashboardContent userName={userName} /> },
+    { text: "Tasks", icon: <TaskIcon /> },
     {
       text: "Properties",
-      icon: <ApartmentIcon style={{ color: "#FFFFFF" }} />,
+      icon: <Group />,
+      content: <PropertyOnboarding />,
     },
-    { text: "Services", icon: <MessageIcon style={{ color: "#FFFFFF" }} /> },
+    { text: "Services", icon: <MessageIcon /> },
     {
       text: "Marketing",
-      icon: <QueueMusicRounded style={{ color: "#FFFFFF" }} /> ,
+      icon: <QueueMusicRounded />,
     },
-    { text: "Tenants & Leases", icon: <Group style={{ color: "#FFFFFF" }} /> },
-    { text: "Financials", icon: <Propane style={{ color: "#FFFFFF" }} /> },
+    { text: "Tenants & Leases", icon: <Group /> },
+    { text: "Financials", icon: <Propane /> },
     {
       text: "Maintenance & Repair",
-      icon: <TaskIcon style={{ color: "#FFFFFF" }} />,
+      icon: <TaskIcon />,
     },
-    { text: "Reports", icon: <SettingsIcon style={{ color: "#FFFFFF" }} /> },
+    { text: "Reports", icon: <SettingsIcon /> },
     {
       text: "Logout",
-      icon: <Logout style={{ color: "#FFFFFF" }} />,
-      onClick: handleLogout,
+      icon: <Logout />,
+      onClick: () => handleLogout(),
     },
   ];
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "Dashboard":
-        return <PmDashboardContent />;
-      case "Properties":
-        return <PropertyOnboarding />;
-      default:
-        return (
-          <Typography variant="h6">Select a tab to view content</Typography>
-        );
-    }
-  };
-
   return (
-    <Box sx={{ display: "flex" }}>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            backgroundColor: "#1A237E",
-            color: "#FFFFFF",
-          },
-        }}
-      >
-        <Toolbar />
-        <List>
-          {tabs.map(({ text, icon, onClick }) => (
-            <ListItem button key={text} onClick={() => onClick ? onClick() : handleTabClick(text)}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-
-      <Box component="main" sx={{ flexGrow: 1, bgcolor: "#F4F6F8", p: 3 }}>
-        <AppBar
-          position="fixed"
-          sx={{
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            bgcolor: "#283593",
-          }}
-        >
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-              {`${activeTab}`}
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-              {userName && (
-                <Typography variant="body1" sx={{ color: "#fff", marginRight: 2 }}>
-                  {userName}
-                </Typography>
-              )}
-              {userEmail && (
-                <Typography variant="body1" sx={{ color: "#fff" }}>
-                  {userEmail}
-                </Typography>
-              )}
-            </Box>
-          </Toolbar>
-        </AppBar>
-
-        <Toolbar />
-        {renderContent()}
-      </Box>
-    </Box>
+    <DashboardLayout
+      tabs={tabs}
+      initialTab="Dashboard"
+      userName={userName}
+      userEmail={userEmail}
+    />
   );
 };
 

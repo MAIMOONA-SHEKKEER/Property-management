@@ -8,7 +8,6 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Chip,
 } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { getStatusChip } from "../../utils/statusUtils";

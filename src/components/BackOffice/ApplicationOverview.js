@@ -16,6 +16,14 @@ const ApplicationOverview = () => {
     setStep(3);
   };
 
+  const handlePrevStep = () => {
+    if (step === 2) {
+      setStep(1);
+    } else if (step === 3) {
+      setStep(2);
+    }
+  };
+
   return (
     <div>
       {step === 1 && (
@@ -25,10 +33,14 @@ const ApplicationOverview = () => {
         <ApplicationReview
           application={selectedApplication}
           onNextStep={handleNextStep}
+          onPrevStep={handlePrevStep}
         />
       )}
       {step === 3 && selectedApplication && (
-        <ReviewOutcome application={selectedApplication} />
+        <ReviewOutcome
+          application={selectedApplication}
+          onPrevStep={handlePrevStep}
+        />
       )}
     </div>
   );

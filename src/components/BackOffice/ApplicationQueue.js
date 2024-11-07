@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from "react";
-import { Box, Typography } from "@mui/material";
-import AppTable from "../styled/AppTable"; // Assuming AppTable is a styled component
-import FilterDropdown from "../styled/FilterDropdown"; // Assuming FilterDropdown is a styled component
-import { applications as allApplications } from "../../constants/application"; // Assuming applications data is imported
+import React, { useState, useMemo, useEffect } from "react";
+import { Box } from "@mui/material";
+import AppTable from "../styled/AppTable";
+import FilterDropdown from "../styled/FilterDropdown";
+import { applications as allApplications } from "../../constants/application";
+import StyledHeading from "../styled/StyledHeading";
 
 const ApplicationQueue = ({ onSelectApplication }) => {
-  const [propertyId, setPropertyId] = useState("");
+  const [filter, setFilter] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
 
   const applicationColumns = [
@@ -16,18 +17,31 @@ const ApplicationQueue = ({ onSelectApplication }) => {
   ];
 
   const applications = useMemo(() => {
-    return allApplications || []; 
-  }, [allApplications]);
+    return allApplications || [];
+  }, []);
 
-  const handleSearch = () => {
-    const filtered = applications.filter(
-      (app) => app.property_id === propertyId
-    );
+  useEffect(() => {
+    const filtered = applications.filter((app) => {
+      if (filter.startsWith("Property ID: ")) {
+        const selectedPropertyId = filter.replace("Property ID: ", "");
+        return app.property_id === selectedPropertyId;
+      } else if (filter.startsWith("Status: ")) {
+        const selectedStatus = filter.replace("Status: ", "");
+        return app.status === selectedStatus;
+      }
+      return true;
+    });
     setFilteredApplications(filtered.length ? filtered : applications);
-  };
+  }, [filter, applications]);
 
   const searchOptions = useMemo(() => {
-    return [...new Set(applications.map((app) => app.property_id.toString()))];
+    const propertyIdOptions = [
+      ...new Set(applications.map((app) => `Property ID: ${app.property_id}`)),
+    ];
+    const statusOptions = [
+      ...new Set(applications.map((app) => `Status: ${app.status}`)),
+    ];
+    return [...propertyIdOptions, ...statusOptions];
   }, [applications]);
 
   const handleView = (application) => {
@@ -35,24 +49,20 @@ const ApplicationQueue = ({ onSelectApplication }) => {
   };
 
   return (
-    <Box sx={{ p: 2, marginLeft: 30 }}>
-      <Typography
-            variant="h6"
-            sx={{ fontWeight: "medium", color: "#3f51b5", mb: 2 }}
-          >
-            Property Application Queue
-          </Typography>
-
+    <Box sx={{ p: 2 }}>
+      <StyledHeading >Property Application Queue</StyledHeading>
       <FilterDropdown
         options={searchOptions}
-        label="Search by Property ID"
-        value={propertyId}
-        onChange={(event, newValue) => setPropertyId(newValue || "")}
+        label="Search by Property ID or Status"
+        value={filter}
+        onChange={(event, newValue) => setFilter(newValue || "")}
       />
 
       <AppTable
         columns={applicationColumns}
-        data={filteredApplications.length > 0 ? filteredApplications : applications} 
+        data={
+          filteredApplications.length > 0 ? filteredApplications : applications
+        }
         onView={handleView}
         loading={false}
       />
