@@ -4,13 +4,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Button,
   Card,
   CardContent,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import StyledHeading from "../styled/StyledHeading";
+import { StyledButton } from "../styled/StyledButton";
 
 const ReviewChecklist = ({
   isLocked,
@@ -41,55 +41,55 @@ const ReviewChecklist = ({
             <ListItem>
               <ListItemIcon>{getIcon(detailsChecked)}</ListItemIcon>
               <ListItemText primary="Check Details" />
-              <Button
+              <StyledButton
                 variant="outlined"
                 onClick={onCheckDetails}
                 disabled={!isLocked || detailsChecked}
               >
                 Check
-              </Button>
+              </StyledButton>
             </ListItem>
 
             <ListItem>
               <ListItemIcon>{getIcon(documentsVerified)}</ListItemIcon>
               <ListItemText primary="Verify Documents" />
-              <Button
+              <StyledButton
                 variant="outlined"
                 onClick={onVerifyDocuments}
                 disabled={!isLocked || !detailsChecked || documentsVerified}
               >
                 Verify
-              </Button>
+              </StyledButton>
             </ListItem>
 
             <ListItem>
               <ListItemIcon>{getIcon(leaseReviewed)}</ListItemIcon>
               <ListItemText primary="Review Lease Agreement" />
-              <Button
+              <StyledButton
                 variant="outlined"
                 onClick={onReviewLease}
                 disabled={!isLocked || !documentsVerified || leaseReviewed}
               >
                 Review
-              </Button>
+              </StyledButton>
             </ListItem>
 
             <ListItem>
               <ListItemIcon>{getIcon(subscriptionValidated)}</ListItemIcon>
               <ListItemText primary="Validate Subscription" />
-              <Button
+              <StyledButton
                 variant="outlined"
                 onClick={onValidateSubscription}
                 disabled={!isLocked || !leaseReviewed || subscriptionValidated}
               >
                 Validate
-              </Button>
+              </StyledButton>
             </ListItem>
 
             <ListItem>
               <ListItemIcon>{getIcon(blacklistChecked)}</ListItemIcon>
               <ListItemText primary="Check Blacklist Status" />
-              <Button
+              <StyledButton
                 variant="outlined"
                 onClick={onCheckBlacklist}
                 disabled={
@@ -97,7 +97,7 @@ const ReviewChecklist = ({
                 }
               >
                 Check
-              </Button>
+              </StyledButton>
             </ListItem>
           </List>
         </CardContent>

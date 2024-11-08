@@ -4,12 +4,12 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Divider,
   Alert,
   CircularProgress,
   Grid,
 } from "@mui/material";
+import { StyledButton } from "../styled/StyledButton";
 
 function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
                 Ready to submit your application? Ensure all details are
                 accurate, then click below to complete your submission.
               </Typography>
-              <Button
+              <StyledButton
                 variant="contained"
                 color="primary"
                 onClick={handleSubmitApplication}
@@ -88,16 +88,16 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
                 ) : (
                   "Submit Application"
                 )}
-              </Button>
+              </StyledButton>
 
-              <Button
+              <StyledButton
                 variant="outlined"
                 fullWidth
                 sx={{ mt: 2 }}
                 onClick={handlePreviousStep}
               >
                 Back to Property Setup Configuration
-              </Button>
+              </StyledButton>
             </>
           ) : (
             <Grid container spacing={2} sx={{ mt: 3 }}>
@@ -109,14 +109,14 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
                   Your application is now in review. You can track the status
                   using property ID
                 </Typography>
-                <Button
+                <StyledButton
                   variant="contained"
                   fullWidth
                   sx={{ mt: 3 }}
                   onClick={() => (window.location.href = "/pm-dashboard")}
                 >
                   Done
-                </Button>
+                </StyledButton>
               </Grid>
             </Grid>
           )}

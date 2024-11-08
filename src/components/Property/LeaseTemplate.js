@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Divider,
@@ -12,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Download as DownloadIcon } from "@mui/icons-material";
+import { StyledButton } from "../styled/StyledButton";
 
 const LeaseTemplate = ({
   handlePreviousStep,
@@ -19,7 +19,7 @@ const LeaseTemplate = ({
   handleDownloadTemplate,
   handleLeaseDocumentChange,
   leaseDocumentChoice,
-  handleNextStep
+  handleNextStep,
 }) => {
   return (
     <>
@@ -61,14 +61,14 @@ const LeaseTemplate = ({
               <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
                 Download our template to fill in the required details:
               </Typography>
-              <Button
+              <StyledButton
                 variant="contained"
-                sx={{backgroundColor:"#3f51b5",color:"white"}}
+                sx={{ backgroundColor: "#3f51b5", color: "white" }}
                 startIcon={<DownloadIcon />}
                 onClick={handleDownloadTemplate}
               >
                 Download Template
-              </Button>
+              </StyledButton>
             </Box>
           )}
 
@@ -81,24 +81,23 @@ const LeaseTemplate = ({
               sx={{ mb: 3 }}
             />
           )}
-             <Button
+          <StyledButton
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
             onClick={handleNextStep}
           >
             Next
-          </Button>
+          </StyledButton>
 
-          <Button
+          <StyledButton
             variant="outlined"
             fullWidth
-            sx={{ mt: 2 ,color:'#3f51b5'}}
+            sx={{ mt: 2, color: "#3f51b5" }}
             onClick={handlePreviousStep}
           >
             Back to Property Setup Configuration
-          </Button>
-
+          </StyledButton>
         </CardContent>
       </Card>
     </>

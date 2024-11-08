@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
+import { Card, CardContent, Divider, Grid, Typography } from "@mui/material";
+import { StyledButton } from "../styled/StyledButton";
 
-export const Subscription = ({handleNextStep,handlePreviousStep}) => {
+export const Subscription = ({ handleNextStep, handlePreviousStep }) => {
   return (
     <>
       <Card
@@ -21,17 +22,11 @@ export const Subscription = ({handleNextStep,handlePreviousStep}) => {
             management app. The first month is free!
           </Typography>
 
-          {/* Subscription Options */}
           <Grid container spacing={2} sx={{ mb: 3 }}>
             <Grid item xs={12}>
-              <Button fullWidth>
-                View Subscription Options
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant="contained" sx={{backgroundColor:"#3f51b5",color:'white'}} fullWidth>
-                Activate Subscription
-              </Button>
+              <StyledButton>View Subscription Options</StyledButton>
+
+              <StyledButton>Activate Subscription</StyledButton>
             </Grid>
           </Grid>
 
@@ -45,23 +40,22 @@ export const Subscription = ({handleNextStep,handlePreviousStep}) => {
             active.
           </Typography>
 
-          <Button
+          <StyledButton
             variant="contained"
-            color="primary"
             fullWidth
             sx={{ mt: 3 }}
             onClick={handleNextStep}
           >
             Next
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             variant="outlined"
             fullWidth
-            sx={{ mt: 2,color:'#3f51b5' }}
+            sx={{ mt: 2 }}
             onClick={handlePreviousStep}
           >
             Back to PM Invitation
-          </Button>
+          </StyledButton>
         </CardContent>
       </Card>
     </>

@@ -9,6 +9,7 @@ import LeaseTemplate from "./LeaseTemplate";
 import LeaseAgreementTemplates from "./LeaseAgreementTemplate";
 import ApplicationSubmission from "./ApplicationSubmission";
 import ApplicationTracking from "./ApplicationTracking";
+import theme from "../../styles/globalStyles";
 
 const steps = [
   "Basic Property Summary",
@@ -36,7 +37,6 @@ function PropertyOnboarding() {
   const [customDocument, setCustomDocument] = useState("");
 
   useEffect(() => {
-    // Check if the application has been submitted before
     const applicationSubmitted = localStorage.getItem("applicationSubmitted");
     if (applicationSubmitted === "true") {
       setIsApplicationSubmitted(true);
@@ -84,7 +84,7 @@ function PropertyOnboarding() {
           <Stepper activeStep={step} alternativeLabel>
             {steps.map((label, index) => (
               <Step key={index}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel sx={{color:theme.palette.primary.dark}}>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>

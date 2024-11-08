@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button, TextField, Box, Card, CardContent } from "@mui/material";
+import { TextField, Box, Card, CardContent } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReviewChecklist from "./ReviewChecklist";
 import StyledHeading from "../styled/StyledHeading";
+import { StyledButton } from "../styled/StyledButton";
 
 const ApplicationReview = ({ application, onNextStep, onPrevStep }) => {
   const [isLocked, setIsLocked] = useState(application.locked);
@@ -46,14 +47,14 @@ const ApplicationReview = ({ application, onNextStep, onPrevStep }) => {
         </CardContent>
       </Card>
 
-      <Button
+      <StyledButton
         variant="contained"
         onClick={handleLockApplication}
         disabled={isLocked}
         sx={{ mb: 2 }}
       >
         Lock for Review
-      </Button>
+      </StyledButton>
       <ReviewChecklist
         isLocked={isLocked}
         detailsChecked={detailsChecked}
@@ -68,7 +69,7 @@ const ApplicationReview = ({ application, onNextStep, onPrevStep }) => {
         onCheckBlacklist={() => setBlacklistChecked(true)}
       />
 
-      <Button
+      <StyledButton
         variant="contained"
         color="primary"
         onClick={onNextStep}
@@ -84,8 +85,8 @@ const ApplicationReview = ({ application, onNextStep, onPrevStep }) => {
         sx={{ mt: 2, maxWidth: 500 }}
       >
         Proceed to Outcome
-      </Button>
-      <Button
+      </StyledButton>
+      <StyledButton
         variant="outlined"
         startIcon={<ArrowBackIcon />}
         onClick={onPrevStep} 
@@ -93,7 +94,7 @@ const ApplicationReview = ({ application, onNextStep, onPrevStep }) => {
         sx={{ mt: 2, maxWidth: 500 }}
       >
         Back
-      </Button>
+      </StyledButton>
     </Box>
   );
 };

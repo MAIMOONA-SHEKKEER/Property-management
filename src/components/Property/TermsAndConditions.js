@@ -1,4 +1,3 @@
-// src/components/TermsAndConditions.js
 import React from 'react';
 import { Box, Typography, Checkbox, Button, FormControlLabel } from '@mui/material';
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography, Button, CardContent, Card, Grid } from '@mui/material';
+import { Box, Typography,  CardContent, Card, Grid } from '@mui/material';
+import { StyledButton } from '../styled/StyledButton';
 
 function BackOfficeDashboardContent() {
   return (
@@ -10,9 +11,9 @@ function BackOfficeDashboardContent() {
             <CardContent>
               <Typography variant="h6">System Overview</Typography>
               <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                <Button variant="outlined">View System Stats</Button>
-                <Button variant="outlined">Check Server Health</Button>
-                <Button variant="outlined">View Logs</Button>
+                <StyledButton variant="outlined">View System Stats</StyledButton>
+                <StyledButton variant="outlined">Check Server Health</StyledButton>
+                <StyledButton variant="outlined">View Logs</StyledButton>
               </Box>
             </CardContent>
           </Card>
@@ -42,9 +43,9 @@ function BackOfficeDashboardContent() {
               <Typography variant="body2" sx={{ mt: 1 }}>
                 You have 3 new user registration requests.
               </Typography>
-              <Button size="small" sx={{ mt: 1 }} variant="contained">
+              <StyledButton size="small" sx={{ mt: 1 }} variant="contained">
                 View User Requests
-              </Button>
+              </StyledButton>
             </CardContent>
           </Card>
 
@@ -55,9 +56,9 @@ function BackOfficeDashboardContent() {
               <Typography variant="body2" sx={{ mt: 1 }}>
                 Update your dashboard settings, notifications, and system preferences.
               </Typography>
-              <Button size="small" sx={{ mt: 1 }} variant="outlined">
+              <StyledButton size="small" sx={{ mt: 1 }} variant="outlined">
                 Manage Settings
-              </Button>
+              </StyledButton>
             </CardContent>
           </Card>
         </Grid>
@@ -70,9 +71,9 @@ function BackOfficeDashboardContent() {
             <CardContent>
               <Typography variant="h6">Admin Actions</Typography>
               <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                <Button variant="contained">Create New Role</Button>
-                <Button variant="outlined">Manage Permissions</Button>
-                <Button variant="contained" color="error">Delete User</Button>
+                <StyledButton variant="contained">Create New Role</StyledButton>
+                <StyledButton variant="outlined">Manage Permissions</StyledButton>
+                <StyledButton variant="contained" color="error">Delete User</StyledButton>
               </Box>
             </CardContent>
           </Card>

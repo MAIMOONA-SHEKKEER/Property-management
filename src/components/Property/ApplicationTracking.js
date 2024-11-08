@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Divider,
   CircularProgress,
   Alert,
@@ -14,6 +13,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
+import { StyledButton } from "../styled/StyledButton";
 
 function ApplicationTracking() {
   const [loading, setLoading] = useState(false);
@@ -125,14 +125,14 @@ function ApplicationTracking() {
                   <strong>{applicationStatus}</strong>
                 </Typography>
               </Paper>
-              <Button
+              <StyledButton
                 variant="contained"
                 fullWidth
                 sx={{ mt: 3 }}
                 onClick={() => (window.location.href = "/pm-dashboard")}
               >
                 Go to Dashboard
-              </Button>
+              </StyledButton>
             </>
           )}
         </CardContent>

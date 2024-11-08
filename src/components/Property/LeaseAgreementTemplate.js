@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Button,
   Divider,
   TextField,
   Grid,
@@ -15,6 +14,7 @@ import {
 } from '@mui/material';
 import UploadIcon from '@mui/icons-material/Upload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { StyledButton } from '../styled/StyledButton';
 
 function LeaseAgreementTemplates({handleNextStep,handlePreviousStep}) {
   const [leaseTemplates, setLeaseTemplates] = useState([]);
@@ -35,7 +35,6 @@ function LeaseAgreementTemplates({handleNextStep,handlePreviousStep}) {
     } else {
       setLeaseTemplates((prev) => [...prev, templateFile]);
     }
-    // API call to save the template
     console.log('Uploading file:', templateFile.name);
   };
 
@@ -48,7 +47,6 @@ function LeaseAgreementTemplates({handleNextStep,handlePreviousStep}) {
   };
 
   const handleSaveEmailTemplate = () => {
-    // API call to save the email template
     console.log('Saving email template:', emailTemplate);
   };
 
@@ -96,7 +94,6 @@ function LeaseAgreementTemplates({handleNextStep,handlePreviousStep}) {
             </Grid>
           </Grid>
 
-          {/* Uploaded Templates List */}
           <Typography variant="subtitle1" sx={{ mb: 1 }}>
             Uploaded Lease Agreement Templates
           </Typography>
@@ -137,26 +134,26 @@ function LeaseAgreementTemplates({handleNextStep,handlePreviousStep}) {
             variant="outlined"
             sx={{ mb: 2 }}
           />
-          <Button variant="contained" color="primary" onClick={handleSaveEmailTemplate}>
+          <StyledButton variant="contained"  onClick={handleSaveEmailTemplate}>
             Save Email Template
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
             onClick={handleNextStep}
           >
             Next
-          </Button>
+          </StyledButton>
 
-          <Button
+          <StyledButton
             variant="outlined"
             fullWidth
             sx={{ mt: 2,color:'#3f51b5' }}
             onClick={handlePreviousStep}
           >
             Back to Application to lease template
-          </Button>
+          </StyledButton>
         </CardContent>
       </Card>
     </Box>

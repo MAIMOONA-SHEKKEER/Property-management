@@ -2,29 +2,35 @@ import React, { useState } from "react";
 import axios from "axios";
 import {
   Box,
-  Button,
-  TextField,
   MenuItem,
   Typography,
-  Snackbar,
-  Alert,
   Paper,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AuthRedirect from "../styled/AuthRedirect";
 import { UploadFile } from "@mui/icons-material";
+import { StyledButton } from "../styled/StyledButton";
+import StyledHeading from "../styled/StyledHeading";
+import StyledWrapper from "../styled/StyledWrapper";
+import InputField from "../styled/InputField";
+import StyledSnackbar from "../styled/StyledSnackbar";
 
 const RegistrationForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     password: "",
-    role: "ADMIN",
+    role: "PO",
     cellphoneNr: "",
     proxyLetter: null,
   });
 
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", type: "" });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    type: "",
+  });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -63,75 +69,64 @@ const RegistrationForm = () => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
+    <StyledWrapper>
       <Paper elevation={3} sx={{ padding: 4, width: 400 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Register
-        </Typography>
+        <StyledHeading align="center">Register</StyledHeading>
         <form onSubmit={handleSubmit}>
           <Box spacing={2}>
-            <Box mb={2}>
-              <TextField
-                fullWidth
-                label="Full Name"
-                name="full_name"
-                value={formData.full_name}
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                fullWidth
-                type="email"
-                label="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                fullWidth
-                type="password"
-                label="Password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box mb={2}>
-              <TextField
-                fullWidth
-                select
-                label="Role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-              >
-                <MenuItem value="ADMIN">Admin</MenuItem>
-                <MenuItem value="PO">Property Owner</MenuItem>
-                <MenuItem value="PM">Property Manager</MenuItem>
-                <MenuItem value="tenant">Tenant</MenuItem>
-              </TextField>
-            </Box>
-            <Box display="flex" alignItems="center" justifyContent="center" mt={2} mb={3}>
-              <Button
-                variant="contained"
-                component="label"
-                startIcon={<UploadFile />}
-              >
+            <InputField
+              label="Full Name"
+              name="full_name"
+              value={formData.full_name}
+              onChange={handleChange}
+              required
+            />
+
+            <InputField
+              type="email"
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <InputField
+              type="password"
+              label="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              onClick={handleClickShowPassword}
+              showPassword={showPassword}
+              required
+            />
+
+            <InputField
+              select
+              label="Role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+            >
+              <MenuItem value="ADMIN">Admin</MenuItem>
+              <MenuItem value="PO">Property Owner</MenuItem>
+              <MenuItem value="PM">Property Manager</MenuItem>
+              <MenuItem value="tenant">Tenant</MenuItem>
+            </InputField>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              mt={2}
+              mb={3}
+            >
+              <StyledButton component="label" startIcon={<UploadFile />}>
                 Upload Proxy Letter
                 <input
                   type="file"
@@ -140,15 +135,16 @@ const RegistrationForm = () => {
                   hidden
                   onChange={handleFileChange}
                 />
-              </Button>
+              </StyledButton>
             </Box>
             <Typography variant="body2" color="textSecondary" align="center">
-              After successful registration, you’ll receive an email for verification.
+              After successful registration, you’ll receive an email for
+              verification.
             </Typography>
             <Box mt={2}>
-              <Button fullWidth type="submit" variant="contained" color="primary">
+              <StyledButton fullWidth type="submit" variant="contained">
                 Register
-              </Button>
+              </StyledButton>
             </Box>
           </Box>
         </form>
@@ -158,22 +154,13 @@ const RegistrationForm = () => {
           navigateTo="/"
         />
       </Paper>
-
-      <Snackbar
+      <StyledSnackbar
         open={snackbar.open}
-        autoHideDuration={6000}
+        message={snackbar.message}
+        severity={snackbar.severity}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbar.type}
-          sx={{ width: "100%" }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-    </Box>
+      />
+    </StyledWrapper>
   );
 };
 

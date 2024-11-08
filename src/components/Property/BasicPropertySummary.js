@@ -1,11 +1,18 @@
-import { UploadFile } from '@mui/icons-material'
-import { Button, Card, CardContent, Divider, Grid, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { UploadFile } from "@mui/icons-material";
+import {
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React from "react";
+import { StyledButton } from "../styled/StyledButton";
 
-const BasicPropertySummary = ({handleNextStep}) => {
+const BasicPropertySummary = ({ handleNextStep }) => {
   return (
-    <> {/* Step 1: Basic Property Summary */}
-
+    <>
       <Card
         variant="outlined"
         sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
@@ -24,11 +31,7 @@ const BasicPropertySummary = ({handleNextStep}) => {
 
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                label="Property Alias"
-                fullWidth
-                variant="outlined"
-              />
+              <TextField label="Property Alias" fullWidth variant="outlined" />
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -50,13 +53,10 @@ const BasicPropertySummary = ({handleNextStep}) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                component="label"
-                startIcon={<UploadFile />}
-              >
+              <StyledButton component="label" startIcon={<UploadFile />}>
                 Upload Supporting Documents
                 <input hidden multiple type="file" />
-              </Button>
+              </StyledButton>
               <Typography
                 variant="caption"
                 display="block"
@@ -67,7 +67,7 @@ const BasicPropertySummary = ({handleNextStep}) => {
               </Typography>
             </Grid>
           </Grid>
-          <Button
+          <StyledButton
             variant="contained"
             color="primary"
             fullWidth
@@ -75,11 +75,11 @@ const BasicPropertySummary = ({handleNextStep}) => {
             onClick={handleNextStep}
           >
             Next
-          </Button>
+          </StyledButton>
         </CardContent>
       </Card>
     </>
-  )
-}
+  );
+};
 
-export default BasicPropertySummary
+export default BasicPropertySummary;

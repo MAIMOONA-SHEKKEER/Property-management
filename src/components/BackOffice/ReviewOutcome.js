@@ -4,14 +4,14 @@ import {
   Typography,
   Box,
   Stack,
-  Snackbar,
-  Alert,
   Card,
   CardContent,
   CardActions,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import StyledHeading from "../styled/StyledHeading";
+import StyledSnackbar from "../styled/StyledSnackbar";
+import { StyledButton } from "../styled/StyledButton";
 
 const ReviewOutcome = ({ application, onPrevStep }) => {
   const [snackbar, setSnackbar] = useState({
@@ -53,10 +53,9 @@ const ReviewOutcome = ({ application, onPrevStep }) => {
         alignItems: "center",
         flexDirection: "column",
         minHeight: "80vh",
-   
       }}
     >
-        <StyledHeading>Application Outcome</StyledHeading>
+      <StyledHeading>Application Outcome</StyledHeading>
       <Card
         sx={{ maxWidth: 350, width: "100%", boxShadow: 4, borderRadius: 2 }}
       >
@@ -71,7 +70,7 @@ const ReviewOutcome = ({ application, onPrevStep }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Stack spacing={2} direction="column" sx={{ width:300, p: 2 }}>
+          <Stack spacing={2} direction="column" sx={{ width: 300, p: 2 }}>
             <Button
               variant="contained"
               color="success"
@@ -99,15 +98,15 @@ const ReviewOutcome = ({ application, onPrevStep }) => {
           </Stack>
         </CardActions>
       </Card>
-      <Button
+      <StyledButton
         variant="contained"
         fullWidth
         sx={{ mt: 3, backgroundColor: "#3f51b5", maxWidth: 500 }}
         onClick={() => (window.location.href = "/backoffice-dashboard")}
       >
         Done
-      </Button>
-      <Button
+      </StyledButton>
+      <StyledButton
         variant="outlined"
         startIcon={<ArrowBackIcon />}
         onClick={onPrevStep}
@@ -115,21 +114,13 @@ const ReviewOutcome = ({ application, onPrevStep }) => {
         sx={{ mt: 2, maxWidth: 500 }}
       >
         Back
-      </Button>
-      <Snackbar
+      </StyledButton>
+      <StyledSnackbar
         open={snackbar.open}
-        autoHideDuration={4000}
+        message={snackbar.message}
+        severity={snackbar.severity}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbar.severity}
-          sx={{ width: "100%" }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
+      />
     </Box>
   );
 };

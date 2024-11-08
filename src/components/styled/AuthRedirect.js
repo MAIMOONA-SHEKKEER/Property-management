@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import theme from '../../styles/globalStyles';
 
 const AuthRedirect = ({ message, linkText, navigateTo }) => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const AuthRedirect = ({ message, linkText, navigateTo }) => {
       {message}
       <Box
         component="span"
-        sx={{ color: "primary.main", cursor: "pointer" }}
+        sx={{ color: theme.palette.primary.main, cursor: "pointer" }}
         onClick={() => navigate(navigateTo)}
       >
         {linkText}

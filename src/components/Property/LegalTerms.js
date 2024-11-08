@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   Checkbox,
@@ -8,11 +7,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { StyledButton } from "../styled/StyledButton";
 
 export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
   const [isAccepted, setIsAccepted] = useState(false);
 
-  // Function to handle checkbox toggle
   const handleCheckboxChange = (event) => {
     setIsAccepted(event.target.checked);
   };
@@ -43,10 +42,10 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
               loss of deposit.
             </li>
             <li>
-              No agreement shall be deemed to exist between the Landlord
-              and/or his agent and the Applicant and/or Applicants until the
-              lease agreement has been duly signed by, or on behalf of the
-              Landlord, and monies paid.
+              No agreement shall be deemed to exist between the Landlord and/or
+              his agent and the Applicant and/or Applicants until the lease
+              agreement has been duly signed by, or on behalf of the Landlord,
+              and monies paid.
             </li>
           </ul>
         </Typography>
@@ -61,24 +60,23 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
           label="I accept the Terms and Conditions"
           sx={{ mt: 2 }}
         />
-        <Button
+        <StyledButton
           variant="contained"
-          color="primary"
           fullWidth
           sx={{ mt: 3 }}
           onClick={handleNextStep}
           disabled={!isAccepted}
         >
           Next
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
           variant="outlined"
           fullWidth
-          sx={{ mt: 2, color: "#3f51b5" }}
+          sx={{ mt: 2 }}
           onClick={handlePreviousStep}
         >
           Back to Property Summary
-        </Button>
+        </StyledButton>
       </CardContent>
     </Card>
   );

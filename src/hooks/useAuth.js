@@ -4,7 +4,6 @@ import api from '../services/api';
 
 const useAuth = () => {
   const [user, setUser] = useState(() => {
-    // Check local storage for user data
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });

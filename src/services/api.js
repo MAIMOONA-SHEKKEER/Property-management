@@ -18,10 +18,8 @@ export const registerUser = (data) => api.post('/user-management/register-user',
 export const registerProperty = (data) => api.post('/prop-management-service/register-prop', data);
 export const uploadDocument = (data) => api.post('/document-service/upload', data);
 
-// Set the base URL for your API
-const API_URL = 'http://localhost:5000/api'; // Update this to your backend URL
+const API_URL = 'http://localhost:5000/api';
 
-// Function to add property details
 export const addPropertyDetails = async (propertyDetails) => {
   try {
     const response = await axios.post(`${API_URL}/properties`, propertyDetails);
@@ -31,7 +29,6 @@ export const addPropertyDetails = async (propertyDetails) => {
   }
 };
 
-// Function to get lease templates
 export const getLeaseTemplates = async () => {
   try {
     const response = await axios.get(`${API_URL}/lease-templates`);
@@ -41,7 +38,6 @@ export const getLeaseTemplates = async () => {
   }
 };
 
-// Function to create a lease template
 export const createLeaseTemplate = async (templateName) => {
   try {
     const response = await axios.post(`${API_URL}/lease-templates`, { name: templateName });
@@ -51,7 +47,6 @@ export const createLeaseTemplate = async (templateName) => {
   }
 };
 
-// Function to get lease agreements
 export const getLeaseAgreements = async () => {
   try {
     const response = await axios.get(`${API_URL}/lease-agreements`);
@@ -61,7 +56,6 @@ export const getLeaseAgreements = async () => {
   }
 };
 
-// Function to confirm lease agreement
 export const confirmLeaseAgreement = async (agreementId) => {
   try {
     const response = await axios.post(`${API_URL}/lease-agreements/confirm/${agreementId}`);
@@ -71,7 +65,6 @@ export const confirmLeaseAgreement = async (agreementId) => {
   }
 };
 
-// Function to submit an application
 export const submitApplication = async (applicationData) => {
   try {
     const response = await axios.post(`${API_URL}/applications`, applicationData);
@@ -81,7 +74,6 @@ export const submitApplication = async (applicationData) => {
   }
 };
 
-// Function to get application status
 export const getApplicationStatus = async () => {
   try {
     const response = await axios.get(`${API_URL}/applications/status`);

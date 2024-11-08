@@ -1,4 +1,3 @@
-// src/components/AccountRegistration.js
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Container } from '@mui/material';
 import { registerUser } from '../services/api';

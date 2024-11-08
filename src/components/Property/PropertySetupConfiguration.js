@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   Card,
   CardContent,
   Divider,
@@ -8,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { StyledButton } from "../styled/StyledButton";
 
 const PropertySetupConfiguration = ({
   handleChange,
@@ -92,29 +92,29 @@ const PropertySetupConfiguration = ({
               />
             </Grid>
           </Grid>
-          <Button
-            fullWidth
+          <StyledButton
+            variant="outlined"
             onClick={handleSubmitAdditionalDetails}
-            sx={{ mt: 3,backgroundColor:"#3f51b5",color:"white" }}
+            sx={{ mt: 3}}
           >
             Submit Additional Details
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             variant="contained"
             fullWidth
             sx={{ mt: 2 }}
             onClick={handleNextStep}
           >
            Next
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             variant="outlined"
             fullWidth
             sx={{ mt: 2 }}
             onClick={handlePreviousStep}
           >
             Back to Subscription
-          </Button>
+          </StyledButton>
         </CardContent>
       </Card>
     </>
