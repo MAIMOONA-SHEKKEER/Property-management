@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -13,21 +13,14 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-import { Search } from "@mui/icons-material"; 
+import { Search } from "@mui/icons-material";
 
 function ApplicationTracking() {
   const [loading, setLoading] = useState(false);
   const [applicationStatus, setApplicationStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [propertyId, setPropertyId] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false); 
-
-  useEffect(() => {
-    const storedPropertyId = localStorage.getItem("propertyId");
-    if (storedPropertyId) {
-      setPropertyId(storedPropertyId); 
-    }
-  }, []);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const fetchApplicationStatus = async (propertyId) => {
     setLoading(true);
@@ -38,7 +31,9 @@ function ApplicationTracking() {
       setApplicationStatus(response);
       setIsSubmitted(true);
     } catch (error) {
-      setErrorMessage("Failed to fetch application status. Please try again later.");
+      setErrorMessage(
+        "Failed to fetch application status. Please try again later."
+      );
     } finally {
       setLoading(false);
     }
@@ -54,14 +49,19 @@ function ApplicationTracking() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Card variant="outlined" sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}>
+      <Card
+        variant="outlined"
+        sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
+      >
         <CardContent>
-          <Typography variant="h5" sx={{ fontWeight: "bold", color: "#3f51b5", mb: 2 }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: "bold", color: "#3f51b5", mb: 2 }}
+          >
             Application Status Tracking
           </Typography>
           <Divider sx={{ mb: 3 }} />
 
-          {/* Property ID Input */}
           <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
             Enter your Property ID to check the application status:
           </Typography>
@@ -101,14 +101,26 @@ function ApplicationTracking() {
             </Alert>
           )}
 
-          {loading && <CircularProgress color="primary" sx={{ display: "block", mx: "auto", mt: 3 }} />}
+          {loading && (
+            <CircularProgress
+              color="primary"
+              sx={{ display: "block", mx: "auto", mt: 3 }}
+            />
+          )}
 
           {isSubmitted && !loading && (
             <>
               <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
                 Application Status:
               </Typography>
-              <Paper sx={{ p: 2, backgroundColor: "#e3f2fd", borderRadius: 2, boxShadow: 1 }}>
+              <Paper
+                sx={{
+                  p: 2,
+                  backgroundColor: "#e3f2fd",
+                  borderRadius: 2,
+                  boxShadow: 1,
+                }}
+              >
                 <Typography variant="body1" sx={{ mb: 2 }}>
                   <strong>{applicationStatus}</strong>
                 </Typography>

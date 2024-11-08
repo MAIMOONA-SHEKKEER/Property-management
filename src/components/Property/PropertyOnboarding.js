@@ -64,7 +64,7 @@ function PropertyOnboarding() {
 
   const handleDownloadTemplate = () => {
     window.open(
-      "https://s3.amazonaws.com/yourbucket/document-service/get/application_to_lease_doc.pdf",
+      "http://localhost:8085/leaseApplication",
       "_blank"
     );
   };

@@ -68,6 +68,14 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
 
           {applicationStatus !== "submitted" ? (
             <>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                sx={{ mb: 2, textAlign: "center" }}
+              >
+                Ready to submit your application? Ensure all details are
+                accurate, then click below to complete your submission.
+              </Typography>
               <Button
                 variant="contained"
                 color="primary"
