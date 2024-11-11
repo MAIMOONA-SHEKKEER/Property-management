@@ -1,123 +1,159 @@
-import React from "react";
-import {
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
+import InputField from "../styled/InputField";
+import StyledCard from "../styled/StyledCard";
+import StyledTypography from "../styled/StyledTypography";
 
-const PropertySetupConfiguration = ({
-  handleChange,
-  handleSubmitAdditionalDetails,
-  additionalDetails,
-  handleNextStep,
-  handlePreviousStep
-}) => {
+const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
+  const [formData, setFormData] = useState({
+    totalUnits: "",
+    unitTypes: "",
+    rentalAmount: "",
+    rentalDeposit: "",
+    rentalExtras: "",
+    adminFee: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+
+    if (errors[name]) {
+      setErrors((prevState) => ({ ...prevState, [name]: "" }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.totalUnits) {
+      newErrors.totalUnits = "Total Units is required";
+    }
+    if (!formData.unitTypes) {
+      newErrors.unitTypes = "Unit Types is required";
+    }
+    if (!formData.rentalAmount) {
+      newErrors.rentalAmount = "Rental Amount is required";
+    }
+    if (!formData.rentalDeposit) {
+      newErrors.rentalDeposit = "Rental Deposit is required";
+    }
+    if (!formData.rentalExtras) {
+      newErrors.rentalExtras = "Rental Extras is required";
+    }
+    if (!formData.adminFee) {
+      newErrors.adminFee = "Admin Fee is required";
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const validationErrors = validate();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      handleNextStep(formData);
+    }
+  };
+
+  const isFormValid =
+    Object.keys(errors).length === 0 &&
+    Object.values(formData).every((value) => value !== "");
+
   return (
-    <>
-      <Card
-        variant="outlined"
-        sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
-      >
-        <CardContent>
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "medium", color: "#3f51b5", mb: 2 }}
-          >
-            Step 5: Property Setup Configuration
-          </Typography>
-          <Divider sx={{ mb: 2 }} />
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Total Units"
-                name="totalUnits"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.totalUnits}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Unit Types (e.g., 1BHK, 2BHK)"
-                name="unitTypes"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.unitTypes}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Rental Amount"
-                name="rentalAmount"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.rentalAmount}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Rental Deposit"
-                name="rentalDeposit"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.rentalDeposit}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Rental Extras"
-                name="rentalExtras"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.rentalExtras}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Admin Fee"
-                name="adminFee"
-                fullWidth
-                variant="outlined"
-                value={additionalDetails.adminFee}
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
-          <StyledButton
-            variant="outlined"
-            onClick={handleSubmitAdditionalDetails}
-            sx={{ mt: 3}}
-          >
-            Submit Additional Details
-          </StyledButton>
-          <StyledButton
-            variant="contained"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={handleNextStep}
-          >
-           Next
-          </StyledButton>
-          <StyledButton
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={handlePreviousStep}
-          >
-            Back to Subscription
-          </StyledButton>
-        </CardContent>
-      </Card>
-    </>
+    <form onSubmit={handleSubmit}>
+      <StyledCard>
+        <StyledTypography>
+          Step 5: Property Setup Configuration
+        </StyledTypography>
+        <Divider sx={{ mb: 2 }} />
+        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+          Please provide property configuration details to proceed.
+        </Typography>
+
+        <InputField
+          label="Total Units"
+          required
+          name="totalUnits"
+          value={formData.totalUnits}
+          onChange={handleChange}
+          error={!!errors.totalUnits}
+          helperText={errors.totalUnits}
+        />
+
+        <InputField
+          label="Unit Types (e.g., 1BHK, 2BHK)"
+          name="unitTypes"
+          required
+          value={formData.unitTypes}
+          onChange={handleChange}
+          error={!!errors.unitTypes}
+          helperText={errors.unitTypes}
+        />
+
+        <InputField
+          label="Rental Amount"
+          name="rentalAmount"
+          required
+          value={formData.rentalAmount}
+          onChange={handleChange}
+          error={!!errors.rentalAmount}
+          helperText={errors.rentalAmount}
+        />
+
+        <InputField
+          label="Rental Deposit"
+          name="rentalDeposit"
+          required
+          value={formData.rentalDeposit}
+          onChange={handleChange}
+          error={!!errors.rentalDeposit}
+          helperText={errors.rentalDeposit}
+        />
+
+        <InputField
+          label="Rental Extras"
+          name="rentalExtras"
+          required
+          value={formData.rentalExtras}
+          onChange={handleChange}
+          error={!!errors.rentalExtras}
+          helperText={errors.rentalExtras}
+        />
+
+        <InputField
+          label="Admin Fee"
+          name="adminFee"
+          required
+          value={formData.adminFee}
+          onChange={handleChange}
+          error={!!errors.adminFee}
+          helperText={errors.adminFee}
+        />
+
+        <StyledButton
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 3 }}
+          type="submit"
+          disabled={!isFormValid}
+        >
+          Next
+        </StyledButton>
+        <StyledButton
+          variant="outlined"
+          fullWidth
+          sx={{ mt: 2 }}
+          onClick={handlePreviousStep}
+        >
+          Back to Subscription
+        </StyledButton>
+      </StyledCard>
+    </form>
   );
 };
 

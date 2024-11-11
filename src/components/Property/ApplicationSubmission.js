@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import {
-  Box,
-  Card,
-  CardContent,
   Typography,
   Divider,
   Alert,
   CircularProgress,
-  Grid,
 } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
+import StyledCard from "../styled/StyledCard";
+import StyledTypography from "../styled/StyledTypography";
 
 function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
   const [loading, setLoading] = useState(false);
@@ -41,88 +39,74 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Card
-        variant="outlined"
-        sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
-      >
-        <CardContent>
+    <StyledCard>
+      <StyledTypography>Step 8: Application Submission</StyledTypography>
+      <Divider sx={{ mb: 3 }} />
+
+      {successMessage && (
+        <Alert severity="success" sx={{ mb: 2 }}>
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {errorMessage}
+        </Alert>
+      )}
+
+      {applicationStatus !== "submitted" ? (
+        <>
           <Typography
-            variant="h6"
-            sx={{ fontWeight: "medium", color: "#3f51b5", mb: 2 }}
+            variant="body1"
+            color="textSecondary"
+            sx={{ mb: 2, textAlign: "center" }}
           >
-            Step 8: Application Submission
+            Ready to submit your application? Ensure all details are accurate,
+            then click below to complete your submission.
           </Typography>
-          <Divider sx={{ mb: 3 }} />
+          <StyledButton
+            variant="contained"
+            color="primary"
+            onClick={handleSubmitApplication}
+            fullWidth
+            disabled={loading}
+          >
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Submit Application"
+            )}
+          </StyledButton>
 
-          {successMessage && (
-            <Alert severity="success" sx={{ mb: 2 }}>
-              {successMessage}
-            </Alert>
-          )}
-          {errorMessage && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {errorMessage}
-            </Alert>
-          )}
-
-          {applicationStatus !== "submitted" ? (
-            <>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                sx={{ mb: 2, textAlign: "center" }}
-              >
-                Ready to submit your application? Ensure all details are
-                accurate, then click below to complete your submission.
-              </Typography>
-              <StyledButton
-                variant="contained"
-                color="primary"
-                onClick={handleSubmitApplication}
-                fullWidth
-                disabled={loading}
-              >
-                {loading ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  "Submit Application"
-                )}
-              </StyledButton>
-
-              <StyledButton
-                variant="outlined"
-                fullWidth
-                sx={{ mt: 2 }}
-                onClick={handlePreviousStep}
-              >
-                Back to Property Setup Configuration
-              </StyledButton>
-            </>
-          ) : (
-            <Grid container spacing={2} sx={{ mt: 3 }}>
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                  Application Tracking
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Your application is now in review. You can track the status
-                  using property ID
-                </Typography>
-                <StyledButton
-                  variant="contained"
-                  fullWidth
-                  sx={{ mt: 3 }}
-                  onClick={() => (window.location.href = "/pm-dashboard")}
-                >
-                  Done
-                </StyledButton>
-              </Grid>
-            </Grid>
-          )}
-        </CardContent>
-      </Card>
-    </Box>
+          <StyledButton
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={handlePreviousStep}
+          >
+            Back to Property Setup Configuration
+          </StyledButton>
+        </>
+      ) : (
+        <>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            Application Tracking
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            Your application is now in review. You can track the status using
+            property ID
+          </Typography>
+          <StyledButton
+            variant="contained"
+            fullWidth
+            sx={{ mt: 3 }}
+            onClick={() => (window.location.href = "/pm-dashboard")}
+          >
+            Done
+          </StyledButton>
+        </>
+      )}
+    </StyledCard>
   );
 }
 

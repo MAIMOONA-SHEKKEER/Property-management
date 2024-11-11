@@ -1,16 +1,10 @@
-import { Add, Send } from "@mui/icons-material";
-import {
-  Card,
-  CardContent,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  Grid,
-  Typography,
-} from "@mui/material";
+
 import React, { useState } from "react";
-import axios from "axios";
+import { Add, Send } from "@mui/icons-material";
+import { CardContent, Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
+import StyledCard from "../styled/StyledCard";
+import CheckboxWithLabel from "../styled/CheckboxWithLabel";
 
 export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -20,12 +14,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
       alert("Please accept the Terms and Conditions before proceeding.");
       return;
     }
-
     try {
-      await axios.post("/prop-management-service/invitation/request", {
-        context: "po-to-pm",
-        expirationDays: 5,
-      });
       alert("Invitation sent to PM successfully!");
     } catch (error) {
       console.error("Error sending invitation:", error);
@@ -34,16 +23,11 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
   };
 
   const handleSelectPMFromSystem = () => {
-    alert(
-      "Selecting PM from system... (Integrate with PM selection functionality)"
-    );
+    alert("Selecting PM from system... ");
   };
 
   return (
-    <Card
-      variant="outlined"
-      sx={{ p: 3, mb: 5, backgroundColor: "#f7f9fc", borderRadius: 2 }}
-    >
+    <StyledCard>
       <CardContent>
         <Typography
           variant="h6"
@@ -57,27 +41,22 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           property and tenants on your behalf. This step is optional.
         </Typography>
 
-        <Grid container spacing={2} sx={{ mb: 3 }}>
-          <Grid item xs={12}>
-            <StyledButton
-              fullWidth
-              startIcon={<Send />}
-              onClick={handleSendInvitation}
-              disabled={!termsAccepted}
-            >
-              Send Invitation to PM
-            </StyledButton>
-          </Grid>
-          <Grid item xs={12}>
-            <StyledButton
-              fullWidth
-              startIcon={<Add />}
-              onClick={handleSelectPMFromSystem}
-            >
-              Select PM from System
-            </StyledButton>
-          </Grid>
-        </Grid>
+        <StyledButton
+          fullWidth
+          startIcon={<Send />}
+          onClick={handleSendInvitation}
+          disabled={!termsAccepted}
+        >
+          Send Invitation to PM
+        </StyledButton>
+
+        <StyledButton
+          fullWidth
+          startIcon={<Add />}
+          onClick={handleSelectPMFromSystem}
+        >
+          Select PM from System
+        </StyledButton>
 
         <Typography
           variant="caption"
@@ -95,16 +74,11 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           conditions to proceed.
         </Typography>
 
-        <FormControlLabel
-          control={
-            <Checkbox
-              required
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-            />
-          }
+        <CheckboxWithLabel
+          checked={termsAccepted}
+          onChange={(e) => setTermsAccepted(e.target.checked)}
+          required
           label="I accept the Terms and Conditions on behalf of the invited PM"
-          sx={{ mt: 2 }}
         />
 
         <StyledButton
@@ -126,6 +100,6 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           Back to Legal Terms
         </StyledButton>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };

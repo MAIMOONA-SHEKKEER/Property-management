@@ -37,6 +37,8 @@ export const StyledButton = styled(Button)(({ variant }) => {
     borderRadius: theme.shape.borderRadius,
     textTransform: "none",
     padding: "8px 16px",
+    maxWidth: 500,
     marginTop: theme.spacing(1),
+
   };
 });

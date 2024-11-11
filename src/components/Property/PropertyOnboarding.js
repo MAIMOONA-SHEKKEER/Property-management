@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Stepper, Step, StepLabel } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stepper,
+  Step,
+  StepLabel,
+  Tooltip,
+} from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { CircleTwoTone } from "@mui/icons-material";
 import BasicPropertySummary from "./BasicPropertySummary";
 import { LegalTerms } from "./LegalTerms";
 import { PmInvitation } from "./PmInvitation";
@@ -10,6 +19,7 @@ import LeaseAgreementTemplates from "./LeaseAgreementTemplate";
 import ApplicationSubmission from "./ApplicationSubmission";
 import ApplicationTracking from "./ApplicationTracking";
 import theme from "../../styles/globalStyles";
+import { ErrorRounded } from "@mui/icons-material";
 
 const steps = [
   "Basic Property Summary",
@@ -19,22 +29,15 @@ const steps = [
   "Property Setup Configuration",
   "Application to Lease Templates",
   "Property Lease Agreement Templates",
+  "Upload Supporting Documents",
   "Application Submission",
 ];
 
 function PropertyOnboarding() {
   const [step, setStep] = useState(1);
   const [isApplicationSubmitted, setIsApplicationSubmitted] = useState(false);
-  const [additionalDetails, setAdditionalDetails] = useState({
-    totalUnits: "",
-    unitTypes: "",
-    rentalAmount: "",
-    rentalDeposit: "",
-    rentalExtras: "",
-    adminFee: "",
-  });
-  const [leaseDocumentChoice, setLeaseDocumentChoice] = useState("template");
-  const [customDocument, setCustomDocument] = useState("");
+  const [skippedSteps, setSkippedSteps] = useState(new Set());
+  const [completedAllSteps, setCompletedAllSteps] = useState(false);
 
   useEffect(() => {
     const applicationSubmitted = localStorage.getItem("applicationSubmitted");
@@ -43,53 +46,100 @@ function PropertyOnboarding() {
     }
   }, []);
 
-  const handleNextStep = () => setStep((prevStep) => prevStep + 1);
-  const handlePreviousStep = () => setStep((prevStep) => prevStep - 1);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAdditionalDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+  const handleSkipStep = () => {
+    setSkippedSteps((prevSkipped) => {
+      const updatedSkipped = new Set(prevSkipped);
+      updatedSkipped.add(step);
+      return updatedSkipped;
+    });
+    handleNextStep();
   };
 
-  const handleLeaseDocumentChange = (e) => {
-    setLeaseDocumentChoice(e.target.value);
+  const handleNextStep = () => {
+    setStep((prevStep) => {
+      const nextStep = prevStep + 1;
+      if (nextStep === steps.length) {
+        setCompletedAllSteps(true);
+      }
+      return nextStep;
+    });
   };
 
-  const handleCustomDocumentChange = (e) => {
-    setCustomDocument(e.target.value);
+  const handlePreviousStep = () => {
+    setStep((prevStep) => prevStep - 1);
   };
 
-  const handleDownloadTemplate = () => {
-    window.open(
-      "http://localhost:8085/leaseApplication",
-      "_blank"
-    );
-  };
+  const StepIconComponent = ({ icon, active, completed, index }) => {
+    const isSkipped = skippedSteps.has(index + 1);
 
-  const handleSubmitAdditionalDetails = () => {
-    console.log("Submitting additional details:", additionalDetails);
+    if (completed && !isSkipped) {
+      return <CheckCircleIcon color="success" />;
+    }
+    if (isSkipped) {
+      return <ErrorRounded color="error" />;
+    }
+
+    if (active) {
+      return <CircleTwoTone sx={{ color: theme.palette.primary.main }} />;
+    }
+
+    return <CircleTwoTone color="disabled" />;
   };
 
   return (
-    <Box sx={{ maxWidth: 700, mx: "auto", mt: 6, px: 3 }}>
+    <Box sx={{ maxWidth: 800, mx: "auto", mt: 6, px: 3 }}>
       {isApplicationSubmitted ? (
-       <ApplicationTracking/>
+        <ApplicationTracking />
       ) : (
-        <><Typography variant="h5" align="center" sx={{ fontWeight: "bold", mb: 3 }}>
-        Property Application Onboarding - Step {step}
-      </Typography>
-          <Stepper activeStep={step} alternativeLabel>
+        <>
+          <Typography
+            variant="h5"
+            align="center"
+            sx={{ fontWeight: "bold", mb: 3 }}
+          >
+            Property Application Onboarding - Step {step}
+          </Typography>
+          <Stepper activeStep={step - 1} alternativeLabel>
             {steps.map((label, index) => (
-              <Step key={index}>
-                <StepLabel sx={{color:theme.palette.primary.dark}}>{label}</StepLabel>
+              <Step key={index} completed={index < step - 1}>
+                <Tooltip
+                  title={completedAllSteps ? label : ""}
+                  placement="top"
+                  arrow
+                  disableHoverListener={!completedAllSteps}
+                >
+                  <StepLabel
+                    StepIconComponent={(props) => (
+                      <StepIconComponent
+                        {...props}
+                        index={index}
+                        active={index === step - 1}
+                      />
+                    )}
+                    sx={{
+                      "& .MuiStepLabel-label": {
+                        color:
+                          index === step - 1
+                            ? theme.palette.primary.main
+                            : "inherit",
+                      },
+                    }}
+                    onClick={() => {
+                      if (completedAllSteps) {
+                        setStep(index + 1);
+                      }
+                    }}
+                  >
+                    {label}
+                  </StepLabel>
+                </Tooltip>
               </Step>
             ))}
           </Stepper>
 
-          {step === 1 && <BasicPropertySummary handleNextStep={handleNextStep} />}
+          {step === 1 && (
+            <BasicPropertySummary handleNextStep={handleNextStep} />
+          )}
           {step === 2 && (
             <LegalTerms
               handleNextStep={handleNextStep}
@@ -106,23 +156,17 @@ function PropertyOnboarding() {
             <Subscription
               handleNextStep={handleNextStep}
               handlePreviousStep={handlePreviousStep}
+              handleSkipStep={handleSkipStep}
             />
           )}
           {step === 5 && (
             <PropertySetupConfiguration
-              handleChange={handleChange}
               handlePreviousStep={handlePreviousStep}
               handleNextStep={handleNextStep}
-              additionalDetails={additionalDetails}
-              handleSubmitAdditionalDetails={handleSubmitAdditionalDetails}
             />
           )}
           {step === 6 && (
             <LeaseTemplate
-              handleCustomDocumentChange={handleCustomDocumentChange}
-              handleDownloadTemplate={handleDownloadTemplate}
-              handleLeaseDocumentChange={handleLeaseDocumentChange}
-              leaseDocumentChoice={leaseDocumentChoice}
               handlePreviousStep={handlePreviousStep}
               handleNextStep={handleNextStep}
             />

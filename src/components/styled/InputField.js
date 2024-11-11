@@ -1,8 +1,19 @@
 import React from "react";
-import { TextField, InputAdornment, IconButton, styled } from "@mui/material";
-import { Phone, Email, VisibilityOff, Visibility, Person } from "@mui/icons-material";
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  styled,
+} from "@mui/material";
+import {
+  Phone,
+  Email,
+  VisibilityOff,
+  Visibility,
+  AttachFile
+} from "@mui/icons-material";
 
-const RedAsterisk = styled("span")({
+export const RedAsterisk = styled("span")({
   color: "red",
 });
 
@@ -13,6 +24,12 @@ const InputField = ({
   onClick,
   showPassword,
   error,
+  value,
+  name,
+  multiline = false,
+  minRows,
+  multiple = false,
+  onChange,
   ...props
 }) => {
   const getAdornment = () => {
@@ -41,22 +58,26 @@ const InputField = ({
             <Phone />
           </InputAdornment>
         );
-      default:
+      case "file":
         return (
           <InputAdornment position="start">
-            <Person />
+            <AttachFile />
           </InputAdornment>
         );
+      default:
+        return null;
     }
   };
 
   return (
     <TextField
       {...props}
-      type={showPassword && type === "password" ? "text" : type}
-      fullWidth
+      type={type === "file" ? "file" : showPassword && type === "password" ? "text" : type}
+      fullWidth sx={{ maxWidth:500}}
       margin="normal"
       error={error}
+      value={value}
+      name={name}
       label={
         required ? (
           <>
@@ -69,6 +90,12 @@ const InputField = ({
       InputProps={{
         endAdornment: getAdornment(),
       }}
+      inputProps={{
+        multiple: multiple && type === "file", 
+      }}
+      multiline={multiline}
+      minRows={multiline && minRows ? minRows : 1}
+      onChange={onChange}
     />
   );
 };
