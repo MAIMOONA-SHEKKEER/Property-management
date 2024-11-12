@@ -20,6 +20,7 @@ import ApplicationSubmission from "./ApplicationSubmission";
 import ApplicationTracking from "./ApplicationTracking";
 import theme from "../../styles/globalStyles";
 import { ErrorRounded } from "@mui/icons-material";
+import DocumentUpload from "./DocumentUpload";
 
 const steps = [
   "Basic Property Summary",
@@ -178,6 +179,12 @@ function PropertyOnboarding() {
             />
           )}
           {step === 8 && (
+            <DocumentUpload
+              handlePreviousStep={handlePreviousStep}
+              handleNextStep={handleNextStep}
+            />
+          )}
+          {step === 9 && (
             <ApplicationSubmission
               handlePreviousStep={handlePreviousStep}
               handleNextStep={handleNextStep}

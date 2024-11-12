@@ -1,9 +1,9 @@
 import React from "react";
 import { Home as HomeIcon, Group, Logout } from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
+import { useNavigate } from "react-router-dom";
 import BackOfficeDashboardContent from "../BackOffice/BODashboardContent";
 import ApplicationOverview from "../BackOffice/ApplicationOverview";
-import { useNavigate } from "react-router-dom";
 
 const BackOfficeDashboard = () => {
   const navigate = useNavigate();
@@ -17,14 +17,20 @@ const BackOfficeDashboard = () => {
     {
       text: "Dashboard",
       icon: <HomeIcon />,
+      onClick: () => navigate("/backoffice-dashboard"), 
       content: <BackOfficeDashboardContent />,
     },
     {
       text: "Property Managers Queue",
       icon: <Group />,
       content: <ApplicationOverview />,
+      onClick: () => navigate("/backoffice-dashboard/pm-queue"),
     },
-    { text: "Logout", icon: <Logout />, onClick: () => handleLogout() },
+    {
+      text: "Logout",
+      icon: <Logout />,
+      onClick: handleLogout,
+    },
   ];
 
   return (

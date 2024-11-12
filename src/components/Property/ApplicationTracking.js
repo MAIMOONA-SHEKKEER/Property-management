@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import {
-  Box,
   Typography,
   Divider,
   CircularProgress,
   Alert,
   Paper,
-  IconButton,
 } from "@mui/material";
-import { Search } from "@mui/icons-material";
 import { StyledButton } from "../styled/StyledButton";
 import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
-import InputField from "../styled/InputField";
+import SearchInput from "../styled/SearchInput";
 
 function ApplicationTracking() {
   const [loading, setLoading] = useState(false);
@@ -26,7 +23,7 @@ function ApplicationTracking() {
     setErrorMessage("");
 
     try {
-      const response = "Your application status is in progress";
+      const response = "progress";
       setApplicationStatus(response);
       setIsSubmitted(true);
     } catch (error) {
@@ -47,74 +44,60 @@ function ApplicationTracking() {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <StyledCard>
-        <StyledTypography>Application Status Tracking</StyledTypography>
-        <Divider sx={{ mb: 3 }} />
-        <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
-          Enter your Property ID to check the application status:
-        </Typography>
-        <InputField
-          label="Property ID"
-          fullWidth
-          value={propertyId}
-          onChange={(e) => setPropertyId(e.target.value)}
-        />
-        <IconButton
+    <StyledCard>
+      <StyledTypography>Application Status Tracking</StyledTypography>
+      <Divider sx={{ mb: 3 }} />
+      <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
+        Enter your Property ID to check the application status:
+      </Typography>
+      <SearchInput
+        value={propertyId}
+        onChange={setPropertyId}
+        onSearch={handleSearch}
+        label="Property ID"
+        placeholder="Enter Property ID"
+        required
+      />
+
+      {errorMessage && (
+        <Alert severity="error" sx={{ mt: 3 }}>
+          {errorMessage}
+        </Alert>
+      )}
+      {loading && (
+        <CircularProgress
           color="primary"
-          onClick={handleSearch}
-          sx={{
-            backgroundColor: "#3f51b5",
-            color: "white",
-            borderRadius: 2,
-            padding: 1,
-            "&:hover": {
-              backgroundColor: "#303f9f",
-            },
-          }}
-        >
-          <Search />
-        </IconButton>
-        {errorMessage && (
-          <Alert severity="error" sx={{ mt: 3 }}>
-            {errorMessage}
-          </Alert>
-        )}
-        {loading && (
-          <CircularProgress
-            color="primary"
-            sx={{ display: "block", mx: "auto", mt: 3 }}
-          />
-        )}
-        {isSubmitted && !loading && (
-          <>
-            <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
-              Application Status:
+          sx={{ display: "block", mx: "auto", mt: 3 }}
+        />
+      )}
+      {isSubmitted && !loading && (
+        <>
+          <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
+            Application Status:
+          </Typography>
+          <Paper
+            sx={{
+              p: 2,
+              backgroundColor: "#e3f2fd",
+              borderRadius: 2,
+              boxShadow: 1,
+            }}
+          >
+            <Typography variant="body2">
+              Your application status is in <strong>{applicationStatus}</strong>
             </Typography>
-            <Paper
-              sx={{
-                p: 2,
-                backgroundColor: "#e3f2fd",
-                borderRadius: 2,
-                boxShadow: 1,
-              }}
-            >
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                <strong>{applicationStatus}</strong>
-              </Typography>
-            </Paper>
-            <StyledButton
-              variant="contained"
-              fullWidth
-              sx={{ mt: 3 }}
-              onClick={() => (window.location.href = "/pm-dashboard")}
-            >
-              Go to Dashboard
-            </StyledButton>
-          </>
-        )}
-      </StyledCard>
-    </Box>
+          </Paper>
+          <StyledButton
+            variant="contained"
+            fullWidth
+            sx={{ mt: 3 }}
+            onClick={() => (window.location.href = "/pm-dashboard")}
+          >
+            Go to Dashboard
+          </StyledButton>
+        </>
+      )}
+    </StyledCard>
   );
 }
 

@@ -1,24 +1,15 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { Box } from "@mui/material";
-import AppTable from "../styled/AppTable";
 import FilterDropdown from "../styled/FilterDropdown";
 import { applications as allApplications } from "../../constants/application";
 import StyledHeading from "../styled/StyledHeading";
+import ApplicationStatusSection from "./ApplicationStatusSection";
 
 const ApplicationQueue = ({ onSelectApplication }) => {
   const [filter, setFilter] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
 
-  const applicationColumns = [
-    { id: "id", label: "ID" },
-    { id: "property_id", label: "Property Id" },
-    { id: "status", label: "Status" },
-    { id: "action", label: "Action" },
-  ];
-
-  const applications = useMemo(() => {
-    return allApplications || [];
-  }, []);
+  const applications = useMemo(() => allApplications || [], []);
 
   useEffect(() => {
     const filtered = applications.filter((app) => {
@@ -44,28 +35,32 @@ const ApplicationQueue = ({ onSelectApplication }) => {
     return [...propertyIdOptions, ...statusOptions];
   }, [applications]);
 
-  const handleView = (application) => {
-    onSelectApplication(application);
-  };
+  const applicationsByStatus = useMemo(() => {
+    return filteredApplications.reduce((acc, app) => {
+      acc[app.status] = acc[app.status] ? [...acc[app.status], app] : [app];
+      return acc;
+    }, {});
+  }, [filteredApplications]);
 
   return (
     <Box sx={{ p: 2 }}>
-      <StyledHeading >Property Application Queue</StyledHeading>
+      <StyledHeading>Property Application Queue</StyledHeading>
       <FilterDropdown
         options={searchOptions}
         label="Search by Property ID or Status"
         value={filter}
         onChange={(event, newValue) => setFilter(newValue || "")}
       />
-
-      <AppTable
-        columns={applicationColumns}
-        data={
-          filteredApplications.length > 0 ? filteredApplications : applications
-        }
-        onView={handleView}
-        loading={false}
-      />
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
+        {Object.keys(applicationsByStatus).map((status) => (
+          <ApplicationStatusSection
+            key={status}
+            status={status}
+            applications={applicationsByStatus[status]}
+            onSelectApplication={onSelectApplication}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };

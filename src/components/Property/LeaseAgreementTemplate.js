@@ -1,44 +1,49 @@
 import React, { useState } from "react";
-import { Box, Typography, Divider, Alert, Tooltip, Chip } from "@mui/material";
-import UploadIcon from "@mui/icons-material/Upload";
+import { Box, Typography, Divider, Alert, Chip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { StyledButton } from "../styled/StyledButton";
 import StyledCard from "../styled/StyledCard";
-import InputField from "../styled/InputField";
 import theme from "../../styles/globalStyles";
 import StyledTypography from "../styled/StyledTypography";
+import FileInputField from "../styled/FileInputField";  // Importing the custom FileInputField
+import InputField from "../styled/InputField";
 
 function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
   const [leaseTemplates, setLeaseTemplates] = useState([]);
-  const [emailTemplate, setEmailTemplate] = useState("");
   const [templateFiles, setTemplateFiles] = useState([]);
   const [warning, setWarning] = useState(false);
   const [isEmailTemplateSaved, setIsEmailTemplateSaved] = useState(false);
-
+  const [emailTemplate, setEmailTemplate] = useState("");  // Added emailTemplate state
   const maxTemplates = 6;
 
+  // Handle the file change, ensuring it doesn't exceed maxTemplates
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    setTemplateFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+    
+    // Check if selecting exceeds the maxTemplates limit
+    if (leaseTemplates.length + selectedFiles.length > maxTemplates) {
+      setWarning(true);
+      const excessFiles = leaseTemplates.length + selectedFiles.length - maxTemplates;
+      setTemplateFiles(selectedFiles.slice(0, selectedFiles.length - excessFiles));
+    } else {
+      setWarning(false);
+      setTemplateFiles(selectedFiles);
+    }
   };
 
+  // Handle uploading files
   const handleUploadTemplate = () => {
-    if (leaseTemplates.length + templateFiles.length > maxTemplates) {
-      setWarning(true);
-      const filesToAdd = [...leaseTemplates, ...templateFiles].slice(
-        -maxTemplates
-      );
-      setLeaseTemplates(filesToAdd);
-    } else {
+    if (leaseTemplates.length + templateFiles.length <= maxTemplates) {
       setLeaseTemplates((prev) => [...prev, ...templateFiles]);
+    } else {
+      setWarning(true);
+      const filesToAdd = [...leaseTemplates, ...templateFiles].slice(-maxTemplates);
+      setLeaseTemplates(filesToAdd);
     }
-    console.log(
-      "Uploading files:",
-      templateFiles.map((file) => file.name)
-    );
     setTemplateFiles([]);
   };
 
+  // Remove a template by index
   const handleRemoveTemplate = (index) => {
     setLeaseTemplates((prev) => prev.filter((_, i) => i !== index));
   };
@@ -66,8 +71,7 @@ function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
             onClose={() => setWarning(false)}
             sx={{ mb: 2 }}
           >
-            Maximum template limit reached. The oldest templates will be
-            replaced.
+            Maximum template limit reached. The oldest templates will be replaced.
           </Alert>
         )}
 
@@ -75,12 +79,11 @@ function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
           Upload Lease Agreement Template(s)
         </Typography>
 
-        <InputField
-          type="file"
-          multiple
-          fullWidth
+        <FileInputField
           onChange={handleFileChange}
-          inputProps={{ multiple: true }}
+          multiple
+          disabled={templateFiles.length === 0}
+          label="Choose files to upload"
         />
 
         <StyledButton
@@ -90,7 +93,6 @@ function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
           disabled={templateFiles.length === 0}
         >
           Upload Templates
-          <UploadIcon sx={{ ml: 1 }} />
         </StyledButton>
 
         <Typography variant="subtitle1" sx={{ mb: 1 }}>
@@ -124,18 +126,16 @@ function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
         <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
           Configure the email template to be sent with lease agreements.
         </Typography>
-        <Tooltip title="Enter the content for the email body here">
-          <InputField
-            label="Email Body"
-            type="textarea"
-            fullWidth
-            multiline
-            minRows={4}
-            onChange={handleEmailTemplateChange}
-            placeholder="Enter email body content..."
-            variant="outlined"
-          />
-        </Tooltip>
+        <InputField
+          label="Email Body"
+          type="textarea"
+          fullWidth
+          multiline
+          minRows={4}
+          onChange={handleEmailTemplateChange}
+          placeholder="Enter email body content..."
+          variant="outlined"
+        />
         <StyledButton variant="contained" onClick={handleSaveEmailTemplate}>
           Save Email Template
         </StyledButton>
@@ -154,7 +154,7 @@ function LeaseAgreementTemplates({ handleNextStep, handlePreviousStep }) {
           sx={{ mt: 2, color: "#3f51b5" }}
           onClick={handlePreviousStep}
         >
-          Back to Application to lease template
+          Back
         </StyledButton>
       </StyledCard>
     </Box>

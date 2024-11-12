@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Add, Send } from "@mui/icons-material";
 import { CardContent, Divider, Typography } from "@mui/material";
@@ -15,15 +14,18 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
       return;
     }
     try {
-      alert("Invitation sent to PM successfully!");
+      // Replace the alert with an actual API call for sending the invitation
+      // Example: await sendPmInvitation();
+      alert("Invitation sent to the Property Manager successfully!");
     } catch (error) {
       console.error("Error sending invitation:", error);
-      alert("Failed to send invitation. Please try again.");
+      alert("Failed to send the invitation. Please try again.");
     }
   };
 
   const handleSelectPMFromSystem = () => {
-    alert("Selecting PM from system... ");
+    // Add functionality for selecting PM from the system
+    alert("Selecting Property Manager from the system...");
   };
 
   return (
@@ -41,6 +43,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           property and tenants on your behalf. This step is optional.
         </Typography>
 
+        {/* Button to send invitation */}
         <StyledButton
           fullWidth
           startIcon={<Send />}
@@ -50,6 +53,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           Send Invitation to PM
         </StyledButton>
 
+        {/* Button to select a PM from the system */}
         <StyledButton
           fullWidth
           startIcon={<Add />}
@@ -58,6 +62,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           Select PM from System
         </StyledButton>
 
+        {/* Information about invitation validity */}
         <Typography
           variant="caption"
           display="block"
@@ -70,10 +75,11 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
 
         <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
           Once a PM accepts the invitation, they will have full permissions to
-          manage this property and onboard tenants. They must accept terms and
+          manage this property and onboard tenants. They must accept the terms and
           conditions to proceed.
         </Typography>
 
+        {/* Checkbox to accept terms */}
         <CheckboxWithLabel
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
@@ -81,6 +87,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           label="I accept the Terms and Conditions on behalf of the invited PM"
         />
 
+        {/* Next and Back buttons */}
         <StyledButton
           variant="contained"
           color="primary"
@@ -97,7 +104,7 @@ export const PmInvitation = ({ handleNextStep, handlePreviousStep }) => {
           sx={{ mt: 2, color: "#3f51b5" }}
           onClick={handlePreviousStep}
         >
-          Back to Legal Terms
+          Back
         </StyledButton>
       </CardContent>
     </StyledCard>

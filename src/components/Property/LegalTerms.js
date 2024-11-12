@@ -56,7 +56,7 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
         sx={{ mt: 2 }}
         onClick={handlePreviousStep}
       >
-        Back to Property Summary
+        Back
       </StyledButton>
     </StyledCard>
   );

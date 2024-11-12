@@ -24,31 +24,45 @@ const PmDashboard = () => {
   };
 
   const tabs = [
-    { text: "Dashboard", icon: <HomeIcon />, content: <PmDashboardContent userName={userName} /> },
-    { text: "Tasks", icon: <TaskIcon /> },
+    {
+      text: "Dashboard",
+      icon: <HomeIcon />,
+      onClick: () => navigate("/pm-dashboard"),
+      content: <PmDashboardContent userName={userName} />,
+    },
+    { text: "Tasks", icon: <TaskIcon />, path: "/pm-dashboard/tasks" },
     {
       text: "Properties",
       icon: <Group />,
+      onClick: () => navigate("/pm-dashboard/properties"),
       content: <PropertyOnboarding />,
     },
-    { text: "Services", icon: <MessageIcon /> },
+    { text: "Services", icon: <MessageIcon />, path: "/pm-dashboard/services" },
     {
       text: "Marketing",
       icon: <QueueMusicRounded />,
+      path: "/pm-dashboard/marketing",
     },
-    { text: "Tenants & Leases", icon: <Group /> },
-    { text: "Financials", icon: <Propane /> },
+    {
+      text: "Tenants & Leases",
+      icon: <Group />,
+      path: "/pm-dashboard/tenants-leases",
+    },
+    { text: "Financials", icon: <Propane />, path: "/pm-dashboard/financials" },
     {
       text: "Maintenance & Repair",
       icon: <TaskIcon />,
+      path: "/pm-dashboard/maintenance-repair",
     },
-    { text: "Reports", icon: <SettingsIcon /> },
+    { text: "Reports", icon: <SettingsIcon />, path: "/pm-dashboard/reports" },
     {
       text: "Logout",
       icon: <Logout />,
       onClick: () => handleLogout(),
+      path: "/pm-dashboard/logout",
     },
   ];
+
   return (
     <DashboardLayout
       tabs={tabs}

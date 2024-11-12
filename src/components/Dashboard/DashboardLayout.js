@@ -23,7 +23,6 @@ const DashboardLayout = ({ tabs, initialTab, userName, userEmail }) => {
     if (onClick) onClick();
   };
 
-
   return (
     <Box sx={{ display: "flex" }}>
       <Drawer
@@ -42,7 +41,11 @@ const DashboardLayout = ({ tabs, initialTab, userName, userEmail }) => {
         <Toolbar />
         <List>
           {tabs.map(({ text, icon, onClick }) => (
-            <ListItem button key={text} onClick={() => handleTabClick(text, onClick)}>
+            <ListItem
+              button
+              key={text}
+              onClick={() => handleTabClick(text, onClick)}
+            >
               <ListItemIcon sx={{ color: "#FFFFFF" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -59,15 +62,34 @@ const DashboardLayout = ({ tabs, initialTab, userName, userEmail }) => {
           }}
         >
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1 }}
+            >
               {`${activeTab}`}
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               {userName && (
-                <Typography variant="body1" sx={{ color: "#fff", marginRight: 2 }}>
+                <Typography
+                  variant="body1"
+                  sx={{ color: "#fff", marginRight: 2 }}
+                >
                   {userName}
                 </Typography>
               )}
@@ -82,7 +104,7 @@ const DashboardLayout = ({ tabs, initialTab, userName, userEmail }) => {
 
         <Toolbar />
         <Box sx={{ p: 3 }}>
-          {tabs.find(tab => tab.text === activeTab)?.content || (
+          {tabs.find((tab) => tab.text === activeTab)?.content || (
             <Typography variant="h6">Select a tab to view content</Typography>
           )}
         </Box>

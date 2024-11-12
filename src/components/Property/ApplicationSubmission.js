@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-  Typography,
-  Divider,
-  Alert,
-  CircularProgress,
-} from "@mui/material";
+import { Typography, Divider, Alert, CircularProgress } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 
 function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const propertyId = useState("");
+  const propertyId = useState("QA123");
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,10 +17,6 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
     try {
       localStorage.setItem("applicationSubmitted", "true");
       localStorage.setItem("propertyId", propertyId);
-
-      setSuccessMessage(
-        "You have successfully submitted your application. You can view your application status here."
-      );
       setApplicationStatus("submitted");
     } catch (error) {
       console.error("Error during submission:", error);
@@ -42,12 +32,6 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
     <StyledCard>
       <StyledTypography>Step 8: Application Submission</StyledTypography>
       <Divider sx={{ mb: 3 }} />
-
-      {successMessage && (
-        <Alert severity="success" sx={{ mb: 2 }}>
-          {successMessage}
-        </Alert>
-      )}
       {errorMessage && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {errorMessage}
@@ -66,7 +50,6 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
           </Typography>
           <StyledButton
             variant="contained"
-            color="primary"
             onClick={handleSubmitApplication}
             fullWidth
             disabled={loading}
@@ -77,24 +60,13 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
               "Submit Application"
             )}
           </StyledButton>
-
-          <StyledButton
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={handlePreviousStep}
-          >
-            Back to Property Setup Configuration
-          </StyledButton>
         </>
       ) : (
         <>
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            Application Tracking
-          </Typography>
           <Typography variant="body2" color="textSecondary">
-            Your application is now in review. You can track the status using
-            property ID
+            You have successfully submitted your application.Your application is
+            now in review. You can track the status using the property ID{" "}
+            <strong>{propertyId}</strong>
           </Typography>
           <StyledButton
             variant="contained"

@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import {
@@ -15,6 +16,7 @@ import { StyledButton } from "../styled/StyledButton";
 import StyledCard from "../styled/StyledCard";
 import InputField from "../styled/InputField";
 import StyledTypography from "../styled/StyledTypography";
+import FileInputField from "../styled/FileInputField";
 
 const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
   const [leaseDocumentChoice, setLeaseDocumentChoice] = useState("template");
@@ -58,7 +60,6 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
           Select an option below to proceed with the application to lease
           template:
         </Typography>
-
         <RadioGroup
           value={leaseDocumentChoice}
           onChange={handleLeaseDocumentChange}
@@ -75,7 +76,6 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
             label="Upload Custom Document"
           />
         </RadioGroup>
-
         {leaseDocumentChoice === "template" && (
           <Box sx={{ mb: 3 }}>
             <StyledButton
@@ -88,29 +88,29 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
             </StyledButton>
           </Box>
         )}
-
         {leaseDocumentChoice === "custom" && (
-          <InputField
+          <FileInputField
             label="Upload Custom Document"
             fullWidth
-            type="file"
             onChange={handleCustomDocumentChange}
           />
         )}
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-          Enter the email body to be sent with the application to lease document
-        </Typography>
-        <InputField
-          label="Email Body"
-          type="textarea"
-          fullWidth
-          multiline
-          minRows={4}
-          value={emailBody}
-          onChange={handleEmailBodyChange}
-          placeholder="  Enter email body content"
-        />
-
+        <Tooltip title="Enter the content for the email body here">
+          <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+            Enter the email body to be sent with the application to lease
+            document
+          </Typography>
+          <InputField
+            label="Email Body"
+            type="textarea"
+            fullWidth
+            multiline
+            minRows={4}
+            value={emailBody}
+            onChange={handleEmailBodyChange}
+            placeholder="  Enter email body content"
+          />
+        </Tooltip>
         <StyledButton
           variant="contained"
           fullWidth
@@ -118,13 +118,12 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
           startIcon={<SaveIcon />}
           onClick={handleSave}
           disabled={
-            !leaseDocumentChoice ||
+            !leaseDocumentChoice ||!emailBody ||
             (leaseDocumentChoice === "custom" && !customDocument)
           }
         >
           Save
         </StyledButton>
-
         <StyledButton
           variant="contained"
           fullWidth
@@ -134,14 +133,13 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
         >
           Next
         </StyledButton>
-
         <StyledButton
           variant="outlined"
           fullWidth
           sx={{ mt: 2, color: "#3f51b5" }}
           onClick={handlePreviousStep}
         >
-          Back to Property Setup Configuration
+          Back
         </StyledButton>
       </StyledCard>
     </>

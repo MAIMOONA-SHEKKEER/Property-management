@@ -18,43 +18,32 @@ export const Subscription = ({
           Please select your desired subscription model for our rental
           management app. The first month is free!
         </Typography>
-        <StyledButton>View Subscription Options</StyledButton>
-        <StyledButton>Activate Subscription</StyledButton>
+        <StyledButton variant="outlined" sx={{ mr: 1 }}>
+          View Subscription Options
+        </StyledButton>
+        <StyledButton variant="outlined">Activate Subscription</StyledButton>
         <Typography
           variant="caption"
           display="block"
           color="textSecondary"
-          sx={{ mb: 2 }}
+          sx={{ my: 2 }}
         >
           Your selected subscription will take effect once the property is
           active.
         </Typography>
-
-        <StyledButton
-          variant="contained"
-          fullWidth
-          sx={{ mt: 3 }}
-          onClick={handleNextStep}
-        >
-          Next
-        </StyledButton>
-
         <StyledButton
           variant="outlined"
           fullWidth
-          sx={{ mt: 2 }}
           onClick={() => handleSkipStep(4)}
         >
           Skip
         </StyledButton>
+        <StyledButton variant="contained" fullWidth onClick={handleNextStep}>
+          Next
+        </StyledButton>
 
-        <StyledButton
-          variant="outlined"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handlePreviousStep}
-        >
-          Back to PM Invitation
+        <StyledButton variant="outlined" fullWidth onClick={handlePreviousStep}>
+          Back
         </StyledButton>
       </StyledCard>
     </>

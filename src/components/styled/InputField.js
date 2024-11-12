@@ -1,17 +1,6 @@
 import React from "react";
-import {
-  TextField,
-  InputAdornment,
-  IconButton,
-  styled,
-} from "@mui/material";
-import {
-  Phone,
-  Email,
-  VisibilityOff,
-  Visibility,
-  AttachFile
-} from "@mui/icons-material";
+import { TextField, InputAdornment, IconButton, styled } from "@mui/material";
+import { Phone, Email, VisibilityOff, Visibility, Search } from "@mui/icons-material";
 
 export const RedAsterisk = styled("span")({
   color: "red",
@@ -28,8 +17,9 @@ const InputField = ({
   name,
   multiline = false,
   minRows,
-  multiple = false,
   onChange,
+  placeHolder,
+  helperText,
   ...props
 }) => {
   const getAdornment = () => {
@@ -58,10 +48,12 @@ const InputField = ({
             <Phone />
           </InputAdornment>
         );
-      case "file":
+      case "search":
         return (
-          <InputAdornment position="start">
-            <AttachFile />
+          <InputAdornment position="end">
+            <IconButton aria-label="search">
+              <Search />
+            </IconButton>
           </InputAdornment>
         );
       default:
@@ -72,30 +64,28 @@ const InputField = ({
   return (
     <TextField
       {...props}
-      type={type === "file" ? "file" : showPassword && type === "password" ? "text" : type}
-      fullWidth sx={{ maxWidth:500}}
+      type={showPassword && type === "password" ? "text" : type}
+      fullWidth
+      sx={{ maxWidth: 500 }}
       margin="normal"
       error={error}
       value={value}
       name={name}
-      label={
-        required ? (
-          <>
-            {label} <RedAsterisk>*</RedAsterisk>
-          </>
-        ) : (
-          label
-        )
-      }
+      label={required ? (
+        <>
+          {label} <RedAsterisk>*</RedAsterisk>
+        </>
+      ) : (
+        label
+      )}
       InputProps={{
         endAdornment: getAdornment(),
       }}
-      inputProps={{
-        multiple: multiple && type === "file", 
-      }}
       multiline={multiline}
       minRows={multiline && minRows ? minRows : 1}
+      helperText={helperText}
       onChange={onChange}
+      placeholder={placeHolder}
     />
   );
 };

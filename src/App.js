@@ -8,6 +8,10 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import RegistrationForm from "./components/Auth/Register";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/globalStyles";
+import PropertyOnboarding from "./components/Property/PropertyOnboarding";
+import BackOfficeDashboardContent from "./components/BackOffice/BODashboardContent";
+import ApplicationOverview from "./components/BackOffice/ApplicationOverview";
+import PmDashboardContent from "./components/Property/PmDashboardContent";
 
 function App() {
   return (
@@ -27,7 +31,11 @@ function App() {
             element={
               <PrivateRoute roles={["PO", "PM"]} element={<PmDashboard />} />
             }
-          />
+          >
+            {" "}
+            <Route index element={<PmDashboardContent />} />
+            <Route path="properties" element={<PropertyOnboarding />} />
+          </Route>
           <Route
             path="/backoffice-dashboard"
             element={
@@ -36,7 +44,10 @@ function App() {
                 element={<BackOfficeDashboard />}
               />
             }
-          />
+          >
+            <Route index element={<BackOfficeDashboardContent />} />
+            <Route path="pm-queue" element={<ApplicationOverview />} />
+          </Route>
         </Routes>
       </Router>
     </ThemeProvider>

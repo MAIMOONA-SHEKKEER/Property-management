@@ -59,10 +59,6 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
     }
   };
 
-  const isFormValid =
-    Object.keys(errors).length === 0 &&
-    Object.values(formData).every((value) => value !== "");
-
   return (
     <form onSubmit={handleSubmit}>
       <StyledCard>
@@ -85,7 +81,8 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
         />
 
         <InputField
-          label="Unit Types (e.g., 1BHK, 2BHK)"
+          label="Unit Types"
+          placeHolder="e.g., 1BHK, 2BHK"
           name="unitTypes"
           required
           value={formData.unitTypes}
@@ -136,11 +133,9 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
 
         <StyledButton
           variant="contained"
-          color="primary"
           fullWidth
           sx={{ mt: 3 }}
           type="submit"
-          disabled={!isFormValid}
         >
           Next
         </StyledButton>
@@ -150,7 +145,7 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
           sx={{ mt: 2 }}
           onClick={handlePreviousStep}
         >
-          Back to Subscription
+          Back
         </StyledButton>
       </StyledCard>
     </form>
