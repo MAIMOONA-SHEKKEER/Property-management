@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Typography, Divider, Alert, CircularProgress } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
-import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 
 function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
@@ -28,8 +27,7 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
     }
   };
 
-  return (
-    <StyledCard>
+  return (<>
       <StyledTypography>Step 8: Application Submission</StyledTypography>
       <Divider sx={{ mb: 3 }} />
       {errorMessage && (
@@ -77,8 +75,7 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
             Done
           </StyledButton>
         </>
-      )}
-    </StyledCard>
+      )}</>
   );
 }
 

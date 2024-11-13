@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
-import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 import FileInputField from "../styled/FileInputField";
 
@@ -49,7 +48,6 @@ const DocumentUpload = ({ handleNextStep, handlePreviousStep }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <StyledCard>
         <StyledTypography>Step 8: Upload Supporting Documents</StyledTypography>
         <Divider sx={{ mb: 2 }} />
         <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
@@ -105,7 +103,6 @@ const DocumentUpload = ({ handleNextStep, handlePreviousStep }) => {
         >
           Back
         </StyledButton>
-      </StyledCard>
     </form>
   );
 };

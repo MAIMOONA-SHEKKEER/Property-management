@@ -3,7 +3,6 @@ import { Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import InputField from "../styled/InputField";
 import SelectDropdown from "../styled/SelectDropdown";
-import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 
 const BasicPropertySummary = ({ handleNextStep }) => {
@@ -70,7 +69,7 @@ const BasicPropertySummary = ({ handleNextStep }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <StyledCard>
+      <>
         <StyledTypography>Step 1: Basic Property Summary</StyledTypography>
         <Divider sx={{ mb: 2 }} />
         <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
@@ -131,7 +130,7 @@ const BasicPropertySummary = ({ handleNextStep }) => {
         >
           Next
         </StyledButton>
-      </StyledCard>
+      </>
     </form>
   );
 };

@@ -7,7 +7,6 @@ import {
   Paper,
 } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
-import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 import SearchInput from "../styled/SearchInput";
 
@@ -44,7 +43,7 @@ function ApplicationTracking() {
   };
 
   return (
-    <StyledCard>
+    <>
       <StyledTypography>Application Status Tracking</StyledTypography>
       <Divider sx={{ mb: 3 }} />
       <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
@@ -97,7 +96,7 @@ function ApplicationTracking() {
           </StyledButton>
         </>
       )}
-    </StyledCard>
+    </>
   );
 }
 

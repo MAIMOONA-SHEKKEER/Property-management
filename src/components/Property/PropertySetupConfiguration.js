@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import InputField from "../styled/InputField";
-import StyledCard from "../styled/StyledCard";
 import StyledTypography from "../styled/StyledTypography";
 
 const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
@@ -61,7 +60,7 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <StyledCard>
+      <>
         <StyledTypography>
           Step 5: Property Setup Configuration
         </StyledTypography>
@@ -147,7 +146,7 @@ const PropertySetupConfiguration = ({ handleNextStep, handlePreviousStep }) => {
         >
           Back
         </StyledButton>
-      </StyledCard>
+      </>
     </form>
   );
 };

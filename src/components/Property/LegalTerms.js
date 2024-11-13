@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
-import StyledCard from "../styled/StyledCard";
 import CheckboxWithLabel from "../styled/CheckboxWithLabel";
 import StyledTypography from "../styled/StyledTypography";
 
@@ -13,7 +12,7 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
   };
 
   return (
-    <StyledCard>
+    <>
       <StyledTypography> Step 2: Legal Terms</StyledTypography>
       <Divider sx={{ mb: 2 }} />
       <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
@@ -58,6 +57,6 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
       >
         Back
       </StyledButton>
-    </StyledCard>
+    </>
   );
 };

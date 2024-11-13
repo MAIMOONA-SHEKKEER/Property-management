@@ -43,7 +43,7 @@ const ApplicationQueue = ({ onSelectApplication }) => {
   }, [filteredApplications]);
 
   return (
-    <Box sx={{ p: 2 }}>
+    <Box sx={{ p: 2,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center" }}>
       <StyledHeading>Property Application Queue</StyledHeading>
       <FilterDropdown
         options={searchOptions}
@@ -51,7 +51,7 @@ const ApplicationQueue = ({ onSelectApplication }) => {
         value={filter}
         onChange={(event, newValue) => setFilter(newValue || "")}
       />
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{ display: "flex", flexDirection: "row",flexWrap:"wrap",justifyContent:"center" }}>
         {Object.keys(applicationsByStatus).map((status) => (
           <ApplicationStatusSection
             key={status}

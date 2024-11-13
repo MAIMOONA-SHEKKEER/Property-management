@@ -37,8 +37,7 @@ const ApplicationStatusSection = ({
           sx={{
             p: 2,
             m: 1,
-            backgroundColor: "#f5f5f5",
-            width: 250,
+            width: 400,
             minHeight: 500,
           }}
         >
