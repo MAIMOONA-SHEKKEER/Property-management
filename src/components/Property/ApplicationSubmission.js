@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Typography, Divider, Alert, CircularProgress } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import StyledTypography from "../styled/StyledTypography";
+import CustomSubtitle from "../styled/CustomSubtitle";
 
 function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
   const [loading, setLoading] = useState(false);
@@ -27,8 +28,9 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
     }
   };
 
-  return (<>
-      <StyledTypography>Step 8: Application Submission</StyledTypography>
+  return (
+    <>
+      <StyledTypography>Step 9: Application Submission</StyledTypography>
       <Divider sx={{ mb: 3 }} />
       {errorMessage && (
         <Alert severity="error" sx={{ mb: 2 }}>
@@ -38,14 +40,10 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
 
       {applicationStatus !== "submitted" ? (
         <>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            sx={{ mb: 2, textAlign: "center" }}
-          >
-            Ready to submit your application? Ensure all details are accurate,
-            then click below to complete your submission.
-          </Typography>
+          <CustomSubtitle
+            text="Ready to submit your application? Ensure all details are accurate,
+            then click below to complete your submission."
+          />
           <StyledButton
             variant="contained"
             onClick={handleSubmitApplication}
@@ -63,7 +61,7 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
         <>
           <Typography variant="body2" color="textSecondary">
             You have successfully submitted your application.Your application is
-            now in review. You can track the status using the property ID{" "}
+            now in review. You can track the status using the property ID
             <strong>{propertyId}</strong>
           </Typography>
           <StyledButton
@@ -75,7 +73,8 @@ function ApplicationSubmission({ handleNextStep, handlePreviousStep }) {
             Done
           </StyledButton>
         </>
-      )}</>
+      )}
+    </>
   );
 }
 

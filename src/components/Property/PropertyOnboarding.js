@@ -16,7 +16,7 @@ import StyledCard from "../styled/StyledCard";
 const steps = [
   "Basic Property Summary",
   "Legal Terms",
-  "PM Invitation",
+  "Property Manager Invitation",
   "Subscription",
   "Property Setup Configuration",
   "Application to Lease Templates",

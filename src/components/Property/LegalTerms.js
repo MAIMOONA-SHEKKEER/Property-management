@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Divider, Typography } from "@mui/material";
-import { StyledButton } from "../styled/StyledButton";
 import CheckboxWithLabel from "../styled/CheckboxWithLabel";
 import StyledTypography from "../styled/StyledTypography";
+import BackIcon from "../styled/BackIcon";
+import NextButton from "../styled/NextButton";
 
 export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
   const [isAccepted, setIsAccepted] = useState(false);
@@ -13,6 +14,7 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
 
   return (
     <>
+      <BackIcon onClick={handlePreviousStep} />
       <StyledTypography> Step 2: Legal Terms</StyledTypography>
       <Divider sx={{ mb: 2 }} />
       <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
@@ -40,23 +42,7 @@ export const LegalTerms = ({ handleNextStep, handlePreviousStep }) => {
         onChange={handleCheckboxChange}
         required
       />
-      <StyledButton
-        variant="contained"
-        fullWidth
-        sx={{ mt: 3 }}
-        onClick={handleNextStep}
-        disabled={!isAccepted}
-      >
-        Next
-      </StyledButton>
-      <StyledButton
-        variant="outlined"
-        fullWidth
-        sx={{ mt: 2 }}
-        onClick={handlePreviousStep}
-      >
-        Back
-      </StyledButton>
+      <NextButton onClick={handleNextStep} disabled={!isAccepted} />
     </>
   );
 };

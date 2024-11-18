@@ -9,8 +9,9 @@ import {
 import { StyledButton } from "../styled/StyledButton";
 import StyledTypography from "../styled/StyledTypography";
 import SearchInput from "../styled/SearchInput";
+import StyledCard from "../styled/StyledCard";
 
-function ApplicationTracking() {
+const ApplicationTracking = () => {
   const [loading, setLoading] = useState(false);
   const [applicationStatus, setApplicationStatus] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -43,7 +44,7 @@ function ApplicationTracking() {
   };
 
   return (
-    <>
+    <StyledCard>
       <StyledTypography>Application Status Tracking</StyledTypography>
       <Divider sx={{ mb: 3 }} />
       <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
@@ -96,8 +97,8 @@ function ApplicationTracking() {
           </StyledButton>
         </>
       )}
-    </>
+    </StyledCard>
   );
-}
+};
 
 export default ApplicationTracking;

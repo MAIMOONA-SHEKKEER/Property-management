@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Divider, Typography } from "@mui/material";
-import { StyledButton } from "../styled/StyledButton";
+import { Divider } from "@mui/material";
 import InputField from "../styled/InputField";
 import SelectDropdown from "../styled/SelectDropdown";
 import StyledTypography from "../styled/StyledTypography";
+import NextButton from "../styled/NextButton";
+import CustomSubtitle from "../styled/CustomSubtitle";
 
 const BasicPropertySummary = ({ handleNextStep }) => {
   const [formData, setFormData] = useState({
@@ -63,28 +64,21 @@ const BasicPropertySummary = ({ handleNextStep }) => {
     }
   };
 
-  const isFormValid =
-    Object.keys(errors).length === 0 &&
-    Object.values(formData).every((value) => value !== "");
-
   return (
     <form onSubmit={handleSubmit}>
       <>
         <StyledTypography>Step 1: Basic Property Summary</StyledTypography>
         <Divider sx={{ mb: 2 }} />
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-          Please provide basic details to create a new property application.
-        </Typography>
-
+        <CustomSubtitle text=" Please provide basic details to create a new property application." />
         <InputField
           label="Property Alias"
           name="propertyAlias"
           value={formData.propertyAlias}
           onChange={handleChange}
+          required
           error={!!errors.propertyAlias}
           helperText={errors.propertyAlias}
         />
-
         <SelectDropdown
           label="Property Type"
           name="propertyType"
@@ -100,36 +94,26 @@ const BasicPropertySummary = ({ handleNextStep }) => {
           error={!!errors.propertyType}
           helperText={errors.propertyType}
         />
-
         <InputField
           label="Company Name"
           name="companyName"
           value={formData.companyName}
           onChange={handleChange}
+          required
           error={!!errors.companyName}
           helperText={errors.companyName}
         />
-
         <InputField
           label="Property Address"
           name="propertyAddress"
           placeholder="Use Google API for accuracy"
           value={formData.propertyAddress}
           onChange={handleChange}
+          required
           error={!!errors.propertyAddress}
           helperText={errors.propertyAddress}
         />
-
-        <StyledButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3 }}
-          type="submit"
-          disabled={!isFormValid}
-        >
-          Next
-        </StyledButton>
+        <NextButton onClick={handleNextStep} />
       </>
     </form>
   );

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { StyledButton } from "../styled/StyledButton";
 import StyledTypography from "../styled/StyledTypography";
 import SubscriptionOptions from "./SubscriptionOptions";
+import BackIcon from "../styled/BackIcon";
+import NextButton from "../styled/NextButton";
+import SkipButton from "../styled/SkipButton";
+import CustomSubtitle from "../styled/CustomSubtitle";
 
 export const Subscription = ({
   handleNextStep,
@@ -27,41 +31,24 @@ export const Subscription = ({
   return (
     <>
       <>
+        <BackIcon onClick={handlePreviousStep} />
         <StyledTypography>Step 4: Subscription</StyledTypography>
         <Divider sx={{ mb: 2 }} />
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-          Select a subscription model for our rental management app. Enjoy the
-          first month free!
-        </Typography>
-
+        <CustomSubtitle
+          text="Select a subscription model for our rental management app. Enjoy the
+          first month free!"
+        />
         <StyledButton fullWidth sx={{ mb: 2 }} onClick={handleOpenModal}>
           View Subscription Options
         </StyledButton>
-
         <Typography variant="caption" display="block" color="textSecondary">
           Your selected subscription will take effect once the property is
           active.
         </Typography>
-
-        <StyledButton
-          variant="outlined"
-          fullWidth
-          onClick={() => handleSkipStep(4)}
-          sx={{ mb: 1 }}
-        >
-          Skip
-        </StyledButton>
-        <StyledButton
-          variant="contained"
-          fullWidth
-          onClick={handleNextStep}
-          sx={{ mb: 1 }}
-        >
-          Next
-        </StyledButton>
-        <StyledButton variant="outlined" fullWidth onClick={handlePreviousStep}>
-          Back
-        </StyledButton>
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+          <SkipButton onClick={handleSkipStep} sx={{ flex: 1, ml: 1 }} />
+          <NextButton onClick={handleNextStep} sx={{ flex: 1, ml: 1 }} />
+        </Box>
       </>
 
       <SubscriptionOptions

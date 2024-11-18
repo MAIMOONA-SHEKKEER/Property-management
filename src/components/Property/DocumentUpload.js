@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Divider, Typography } from "@mui/material";
-import { StyledButton } from "../styled/StyledButton";
+import { Divider } from "@mui/material";
 import StyledTypography from "../styled/StyledTypography";
 import FileInputField from "../styled/FileInputField";
+import BackIcon from "../styled/BackIcon";
+import NextButton from "../styled/NextButton";
+import CustomSubtitle from "../styled/CustomSubtitle";
 
 const DocumentUpload = ({ handleNextStep, handlePreviousStep }) => {
   const [documents, setDocuments] = useState({
@@ -41,68 +43,46 @@ const DocumentUpload = ({ handleNextStep, handlePreviousStep }) => {
     const validationErrors = validate();
     setErrors(validationErrors);
 
-    // if (Object.keys(validationErrors).length === 0) {
     handleNextStep(documents);
-    // }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-        <StyledTypography>Step 8: Upload Supporting Documents</StyledTypography>
-        <Divider sx={{ mb: 2 }} />
-        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-          Please upload documents to complete property registration. Ensure
-          these documents verify the legal ownership of the property.
-        </Typography>
-
-        <FileInputField
-          label="Upload ID Document"
-          name="idDocument"
-          required
-          error={!!errors.idDocument}
-          helperText={errors.idDocument}
-          value={documents.idDocument}
-          onChange={handleChange}
-        />
-
-        <FileInputField
-          label="Upload Title Deed"
-          name="titleDeed"
-          required
-          value={documents.titleDeed}
-          error={!!errors.titleDeed}
-          helperText={errors.titleDeed}
-          onChange={handleChange}
-        />
-
-        <FileInputField
-          label="Upload Proof of Residence"
-          name="proofOfResidence"
-          value={documents.proofOfResidence}
-          required
-          error={!!errors.proofOfResidence}
-          helperText={errors.proofOfResidence}
-          onChange={handleChange}
-        />
-
-        <StyledButton
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 3 }}
-          type="submit"
-        >
-          Next
-        </StyledButton>
-
-        <StyledButton
-          variant="outlined"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handlePreviousStep}
-        >
-          Back
-        </StyledButton>
+      <BackIcon onClick={handlePreviousStep} />
+      <StyledTypography>Step 8: Upload Supporting Documents</StyledTypography>
+      <Divider sx={{ mb: 2 }} />
+      <CustomSubtitle
+        text="Please upload documents to complete property registration. Ensure these
+        documents verify the legal ownership of the property."
+      />
+      <FileInputField
+        label="Upload ID Document"
+        name="idDocument"
+        required
+        error={!!errors.idDocument}
+        helperText={errors.idDocument}
+        value={documents.idDocument}
+        onChange={handleChange}
+      />
+      <FileInputField
+        label="Upload Title Deed"
+        name="titleDeed"
+        required
+        value={documents.titleDeed}
+        error={!!errors.titleDeed}
+        helperText={errors.titleDeed}
+        onChange={handleChange}
+      />
+      <FileInputField
+        label="Upload Proof of Residence"
+        name="proofOfResidence"
+        value={documents.proofOfResidence}
+        required
+        error={!!errors.proofOfResidence}
+        helperText={errors.proofOfResidence}
+        onChange={handleChange}
+      />
+      <NextButton onClick={handleNextStep} />
     </form>
   );
 };

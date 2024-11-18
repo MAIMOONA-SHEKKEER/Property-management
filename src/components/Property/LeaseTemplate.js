@@ -5,22 +5,19 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  Tooltip,
-  Typography,
 } from "@mui/material";
-import {
-  Download as DownloadIcon,
-  Save as SaveIcon,
-} from "@mui/icons-material";
+import { Download as DownloadIcon } from "@mui/icons-material";
 import { StyledButton } from "../styled/StyledButton";
-import InputField from "../styled/InputField";
 import StyledTypography from "../styled/StyledTypography";
 import FileInputField from "../styled/FileInputField";
+import BackIcon from "../styled/BackIcon";
+import SaveButton from "../styled/SaveButton";
+import NextButton from "../styled/NextButton";
+import CustomSubtitle from "../styled/CustomSubtitle";
 
 const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
   const [leaseDocumentChoice, setLeaseDocumentChoice] = useState("template");
-  const [customDocument, setCustomDocument] = useState(null); // Custom document
-  const [emailBody, setEmailBody] = useState("");
+  const [customDocument, setCustomDocument] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
   const [hasDownloadedTemplate, setHasDownloadedTemplate] = useState(false);
 
@@ -35,11 +32,6 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
     setCustomDocument(file);
     setIsSaved(false);
   };
-
-  const handleEmailBodyChange = (e) => {
-    setEmailBody(e.target.value);
-  };
-
   const handleDownloadTemplate = () => {
     window.open(
       "http://document-service/get/application_to_lease_doc.pdf",
@@ -49,7 +41,7 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
   };
 
   const handleSave = () => {
-    if (emailBody && (leaseDocumentChoice === "template" || customDocument)) {
+    if (leaseDocumentChoice === "template" || customDocument) {
       setIsSaved(true);
     } else {
       setIsSaved(false);
@@ -58,14 +50,15 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
 
   return (
     <>
+      <BackIcon onClick={handlePreviousStep} />
       <StyledTypography>
         Step 6: Application to Lease Templates
       </StyledTypography>
       <Divider sx={{ mb: 2 }} />
-      <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-        Select an option below to proceed with the application to lease
-        template:
-      </Typography>
+      <CustomSubtitle
+        text="Select an option below to proceed with the application to lease
+        template:"
+      />
       <RadioGroup
         value={leaseDocumentChoice}
         onChange={handleLeaseDocumentChange}
@@ -90,14 +83,15 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
             startIcon={<DownloadIcon />}
             onClick={handleDownloadTemplate}
           >
-            Download Template
+            Download Our Template
           </StyledButton>
 
           {hasDownloadedTemplate && (
             <>
-              <Typography variant="body2" color="textSecondary" mt={3}>
-                Please Upload Edited Template here
-              </Typography>
+              <CustomSubtitle
+                text="Please Upload Edited Template here"
+                mt={3}
+              />
               <FileInputField
                 label="Upload Edited Template"
                 fullWidth
@@ -114,52 +108,21 @@ const LeaseTemplate = ({ handlePreviousStep, handleNextStep }) => {
           onChange={handleCustomDocumentChange}
         />
       )}
-      <Tooltip title="Enter the content for the email body here">
-        <Typography variant="body1" sx={{ color: "#3f51b5", mt: 1 }}>
-          Enter the email body to be sent with the application to lease document
-        </Typography>
-        <InputField
-          label="Email Body"
-          type="textarea"
-          fullWidth
-          multiline
-          minRows={4}
-          value={emailBody}
-          onChange={handleEmailBodyChange}
-          placeholder="  Enter email body content"
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+        <SaveButton
+          onClick={handleSave}
+          sx={{ flex: 1, mr: 1 }}
+          disabled={
+            !leaseDocumentChoice ||
+            (leaseDocumentChoice === "custom" && !customDocument)
+          }
         />
-      </Tooltip>
-      <StyledButton
-        variant="contained"
-        fullWidth
-        sx={{ mt: 2, mb: 2 }}
-        startIcon={<SaveIcon />}
-        onClick={handleSave}
-        disabled={
-          !leaseDocumentChoice ||
-          !emailBody ||
-          (leaseDocumentChoice === "custom" && !customDocument)
-        }
-      >
-        Save
-      </StyledButton>
-      <StyledButton
-        variant="contained"
-        fullWidth
-        sx={{ mt: 2 }}
-        onClick={handleNextStep}
-        disabled={!isSaved}
-      >
-        Next
-      </StyledButton>
-      <StyledButton
-        variant="outlined"
-        fullWidth
-        sx={{ mt: 2, color: "#3f51b5" }}
-        onClick={handlePreviousStep}
-      >
-        Back
-      </StyledButton>
+        <NextButton
+          onClick={handleNextStep}
+          sx={{ flex: 1, ml: 1 }}
+          disabled={!isSaved}
+        />
+      </Box>
     </>
   );
 };
